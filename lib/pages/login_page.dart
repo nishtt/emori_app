@@ -4,6 +4,7 @@ import 'package:mood_app/components/my_button.dart';
 import 'package:mood_app/components/my_textfield.dart';
 import 'package:mood_app/pages/forgot_pw_page.dart';
 import 'package:mood_app/components/my_alert_dialog.dart';
+import 'package:mood_app/l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
@@ -22,13 +23,13 @@ class _LoginPageState extends State<LoginPage> {
 
   void login(BuildContext context) async {
     final authService = AuthService();
-
+    final l10n = AppLocalizations.of(context)!;
     // валидация на пустые поля
     if (_emailController.text.isEmpty || _pwController.text.isEmpty) {
       showMyDialog(
         context: context,
-        title: "Login Error",
-        message: "Please enter both email and password.",
+        title: l10n.loginError,
+        message: l10n.loginEmptyFields,
       );
       return;
     }
@@ -45,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
       if (mounted) {
         showMyDialog(
           context: context,
-          title: "Login Failed",
+          title: l10n.loginFailed,
           message: e.toString().replaceAll("Exception: ", ""),
         );
       }
@@ -57,6 +58,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
@@ -66,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               //вход
               Text(
-                "Login",
+                l10n.login,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontSize: 32,
@@ -84,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 25),
               //поле пароль
               MyTextField(
-                hintText: "Password",
+                hintText: l10n.password,
                 obscureText: true,
                 controller: _pwController,
               ),
@@ -105,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       },
                       child: Text(
-                        "Forgot password?",
+                        l10n.forgotPassword,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.bold,
@@ -122,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
               _isLoading 
                 ? const CircularProgressIndicator() 
                 : MyButton(
-                    text: "Login",
+                    text: l10n.login,
                     onTap: () => login(context),
                   ),
 
@@ -132,12 +134,12 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Not registered yet?"),
+                  Text(l10n.notRegistered),
                   const SizedBox(width: 15),
                   GestureDetector(
                     onTap: widget.onTap, 
-                    child: const Text(
-                      "Register now",
+                    child: Text(
+                      l10n.registerNow,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,

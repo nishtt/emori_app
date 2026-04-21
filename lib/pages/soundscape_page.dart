@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:mood_app/models/sound_item.dart';
 import 'package:mood_app/services/audio_provider.dart';
+import 'package:mood_app/l10n/app_localizations.dart';
 
 class SoundscapePage extends StatelessWidget {
   const SoundscapePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    
+    final l10n = AppLocalizations.of(context)!;
     final audioProvider = Provider.of<AudioProvider>(context);
     final double bottomInset = audioProvider.currentSound != null ? 100.0 : 16.0;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: const Text("Soundscape", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+        title: Text(l10n.soundscape, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,

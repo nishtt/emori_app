@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-
+import 'package:mood_app/l10n/app_localizations.dart';
 //для подтверждения действий
 void showConfirmDialog({
   required BuildContext context,
   required String title,
   required String message,
   required VoidCallback onConfirm,
-  String confirmText = "Confirm", 
-
+  required String confirmText, 
+  required String cancelText, 
+  
 }) {
   showDialog(
     context: context,
@@ -26,7 +27,7 @@ void showConfirmDialog({
         // кнопка отмены
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text("Cancel", style: TextStyle(color: Colors.grey)),
+          child: Text(cancelText, style: TextStyle(color: Colors.grey)),
         ),
         // кнопка подтверждения
         TextButton(

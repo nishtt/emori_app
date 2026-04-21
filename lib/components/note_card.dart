@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../services/mood_manager.dart'; 
 import '../components/my_alert_dialog.dart';
+import 'package:mood_app/l10n/app_localizations.dart';
 
 
 class NoteCard extends StatelessWidget {
@@ -15,14 +16,16 @@ class NoteCard extends StatelessWidget {
   // функция удаления записи
   Future<void> _deleteEntry(BuildContext context) async {
     final user = FirebaseAuth.instance.currentUser;
+    final l10n = AppLocalizations.of(context)!;
     if (user == null) return;
 
     //окно подтверждения удаления
     showConfirmDialog(
     context: context,
-    title: "Delete this entry?",
-    message: "The note will be permanently removed.",
-    confirmText: "Delete",
+    title: l10n.deleteTitle,
+    message: l10n.deleteMessage,
+    confirmText: l10n.deleteConfirm,
+    cancelText: l10n.cancel,
     onConfirm: () async {
       
       try {
@@ -47,6 +50,8 @@ class NoteCard extends StatelessWidget {
 Widget build(BuildContext context) {
   final date = (data['date'] as Timestamp).toDate();
   final moodKey = data['moodKey'] ?? 'neutral';
+  final l10n = AppLocalizations.of(context)!;
+  final localeCode = Localizations.localeOf(context).languageCode;
 
   return GestureDetector(
     onTap: onTap, 
@@ -70,7 +75,7 @@ Widget build(BuildContext context) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    DateFormat('E.').format(date),
+                    DateFormat('E', localeCode).format(date),
                     style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, decoration: TextDecoration.underline),
                   ),
                   Text(
@@ -108,7 +113,7 @@ Widget build(BuildContext context) {
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
-                moodKey.toUpperCase(),
+                MoodManager.getTranslation(context, moodKey).toUpperCase(),
                 style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),

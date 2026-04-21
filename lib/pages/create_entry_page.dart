@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../services/mood_manager.dart';
 import 'emote_picker_page.dart'; 
+import 'package:mood_app/l10n/app_localizations.dart';
+
 
 class CreateEntryPage extends StatefulWidget {
   final DateTime date;
@@ -71,6 +73,7 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
   //сохранение записи
   Future<void> _saveEntry() async {
     final user = FirebaseAuth.instance.currentUser;
+    final l10n = AppLocalizations.of(context)!;
     if (user == null) return;
 
     try {
@@ -100,7 +103,7 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
+          SnackBar(content: Text('${l10n.error}: $e')),
         );
       }
     }
@@ -108,6 +111,8 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final localeCode = Localizations.localeOf(context).languageCode;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -128,8 +133,8 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
         actions: [
           TextButton(
             onPressed: _saveEntry,
-            child: const Text(
-              "SAVE",
+            child: Text(
+              l10n.save,
               style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
             ),
           ),
@@ -155,7 +160,7 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
                     children: [
                       //дата записи
                       Text(
-                        DateFormat('E.').format(widget.date),
+                        DateFormat('E.', localeCode).format(widget.date),
                         style: const TextStyle(
                           fontSize: 14, 
                           fontWeight: FontWeight.w600, 
@@ -174,7 +179,7 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
                     child: GestureDetector(
                       onTap: _changeMood, // вызываем смену настроения
                       child: Tooltip(
-                        message: "Change mood",
+                        message: l10n.changeMood,
                         child: Image.asset(
                           MoodManager.getAssetPath(_currentMoodKey),
                           width: 100,
@@ -194,7 +199,7 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
-                        _currentMoodKey.toUpperCase(),
+                        MoodManager.getTranslation(context, _currentMoodKey).toUpperCase(),
                         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                     ),
@@ -210,8 +215,8 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
                     keyboardType: TextInputType.multiline,
                     autofocus: true,
                     style: const TextStyle(fontSize: 15, height: 1.5, color: Colors.black87),
-                    decoration: const InputDecoration(
-                      hintText: "What's on your mind today?..",
+                    decoration: InputDecoration(
+                      hintText: l10n.noteHint,
                       hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
                       border: InputBorder.none,
                     ),

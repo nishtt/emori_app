@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/theme_manager.dart';
+import 'package:mood_app/l10n/app_localizations.dart';
 
 class ThemesPage extends StatelessWidget {
   const ThemesPage({super.key});
@@ -8,11 +9,11 @@ class ThemesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeManager = Provider.of<ThemeManager>(context);
-
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: const Text("App Themes", style: TextStyle(color: Colors.black)),
+        title: Text(l10n.appThemes, style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(

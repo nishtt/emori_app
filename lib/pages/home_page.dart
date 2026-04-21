@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mood_app/pages/notes_page.dart';
 import 'package:mood_app/components/calendar_day_tile.dart'; 
 import 'emote_picker_page.dart';
+import 'package:mood_app/l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   late PageController _pageController;
   late int _totalMonths;
   late String _currentMonthLabel;
+  
 
   // данные настроений: {'2025-07-07': 'happy'}
   Map<String, String> _moodData = {};
@@ -28,12 +30,12 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _totalMonths = (_today.year - _startDate.year) * 12 + (_today.month - _startDate.month) + 1;
     _pageController = PageController(initialPage: _totalMonths - 1);//открываем текущий месяц
-    _currentMonthLabel = DateFormat('MMMM yyyy').format(_today);
+
 
     _pageController.addListener(() {
       int next = _pageController.page!.round();
       DateTime date = DateTime(_startDate.year, _startDate.month + next);
-      String newLabel = DateFormat('MMMM yyyy').format(date);
+      String newLabel = DateFormat('LLLL yyyy', Localizations.localeOf(context).toString()).format(date);
       if (_currentMonthLabel != newLabel) {
         setState(() => _currentMonthLabel = newLabel);
       }
@@ -41,7 +43,14 @@ class _HomePageState extends State<HomePage> {
 
     _listenToMoods();
   }
-
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final localeCode = Localizations.localeOf(context).languageCode;
+    setState(() {
+      _currentMonthLabel = DateFormat('LLLL yyyy', localeCode).format(_today);
+    });
+  }
   void _listenToMoods() {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
@@ -95,7 +104,8 @@ class _HomePageState extends State<HomePage> {
 
 
   Widget _buildWeekDaysHeader() {
-    final List<String> weekDays = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU']; 
+    final l10n = AppLocalizations.of(context)!;
+    final List<String> weekDays = [l10n.mo, l10n.tu, l10n.we, l10n.th, l10n.fr, l10n.sa, l10n.su]; 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(

@@ -7,6 +7,8 @@ import 'package:mood_app/themes/mood_themes.dart';
 import 'package:mood_app/services/theme_manager.dart';
 import 'firebase_options.dart'; 
 import 'services/audio_provider.dart';
+import 'package:mood_app/l10n/app_localizations.dart';
+import 'services/locale_provider.dart';
 
 void main() async {
   
@@ -24,6 +26,7 @@ void main() async {
     providers: [
       ChangeNotifierProvider(create: (_) => themeManager),
       ChangeNotifierProvider(create: (_) => AudioProvider()), 
+      ChangeNotifierProvider(create: (_) => LocaleProvider()),
     ],
     child: const MoodTrackerApp(),
   ),
@@ -37,6 +40,7 @@ class MoodTrackerApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final themeManager = Provider.of<ThemeManager>(context);
+    final localeProvider = Provider.of<LocaleProvider>(context);
 
     return ValueListenableBuilder<MoodPack>(
       valueListenable: MoodThemes.selectedPackNotifier,
@@ -44,6 +48,9 @@ class MoodTrackerApp extends StatelessWidget {
         return MaterialApp(
           title: 'Mood Tracker',
           debugShowCheckedModeBanner: false,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: localeProvider.locale,
           home: const AuthGate(),
           theme: themeManager.themeData,  
         );

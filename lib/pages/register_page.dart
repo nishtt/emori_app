@@ -3,6 +3,7 @@ import 'package:mood_app/auth/auth_service.dart';
 import 'package:mood_app/components/my_button.dart';
 import 'package:mood_app/components/my_textfield.dart';
 import 'package:mood_app/components/my_alert_dialog.dart';
+import 'package:mood_app/l10n/app_localizations.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
@@ -21,22 +22,23 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void register(BuildContext context) async {
     final _auth = AuthService();
+    final l10n = AppLocalizations.of(context)!;
 
     // валидация пустых полей
     if (_emailController.text.isEmpty || _pwController.text.isEmpty) {
-      showMyDialog(context: context, title: "Oops!", message: "Please fill in all fields.");
+      showMyDialog(context: context, title: l10n.oops, message: l10n.fillAllFields);
       return;
     }
 
     // валидация длины пароля 
     if (_pwController.text.length < 6) {
-      showMyDialog(context: context, title: "Weak Password", message: "Password must be at least 6 characters.");
+      showMyDialog(context: context, title: l10n.weakPassword, message: l10n.passwordLengthError);
       return;
     }
 
     // проверка совпадения паролей
     if (_pwController.text != _confirmPwController.text) {
-      showMyDialog(context: context, title: "Oops!", message: "Passwords do not match!");
+      showMyDialog(context: context, title: l10n.oops, message: l10n.passwordsNoMatch);
       return;
     }
 
@@ -48,7 +50,7 @@ class _RegisterPageState extends State<RegisterPage> {
       if (mounted) {
         showMyDialog(
           context: context, 
-          title: "Registration Error", 
+          title: l10n.registrationError, 
           message: e.toString().replaceAll("Exception: ", "")
         );
       }
@@ -59,6 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
@@ -68,7 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               //регистрация
               Text(
-                "Sign up",
+                l10n.signUp,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontSize: 32
@@ -84,14 +87,14 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 25),
               //поле пароль
               MyTextField(
-                hintText: "Password",
+                hintText: l10n.password,
                 obscureText: true,
                 controller: _pwController,
               ),
               const SizedBox(height: 25),
               //поле подтверждения пароля
               MyTextField(
-                hintText: "Confirm password",
+                hintText: l10n.confirmPassword,
                 obscureText: true,
                 controller: _confirmPwController,
               ),
@@ -101,7 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
               _isLoading 
                 ? const CircularProgressIndicator() 
                 : MyButton(
-                    text: "Register",
+                    text: l10n.register,
                     onTap: () => register(context),
                   ),
 
@@ -110,12 +113,12 @@ class _RegisterPageState extends State<RegisterPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Already have an account?"),
+                  Text(l10n.alreadyHaveAccount),
                   const SizedBox(width: 15),
                   GestureDetector(
                     onTap: widget.onTap,
                     child: Text(
-                      "Login now",
+                      l10n.loginNow,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,

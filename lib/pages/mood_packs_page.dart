@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../themes/mood_themes.dart';
+import 'package:mood_app/l10n/app_localizations.dart';
 
 class MoodPacksPage extends StatefulWidget {
   const MoodPacksPage({super.key});
@@ -11,10 +12,11 @@ class MoodPacksPage extends StatefulWidget {
 class _MoodPacksPageState extends State<MoodPacksPage> {
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: const Text("Choose Mood Pack", style: TextStyle(color: Colors.black)),
+        title: Text(l10n.chooseMoodPack, style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(

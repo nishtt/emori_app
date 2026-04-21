@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'create_entry_page.dart';
 import '../services/mood_manager.dart'; 
+import 'package:mood_app/l10n/app_localizations.dart';
 
 class EmotePickerPage extends StatelessWidget {
   final DateTime selectedDate;
@@ -16,6 +17,8 @@ class EmotePickerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final moodKeys = MoodManager.moodKeys;
+    final l10n = AppLocalizations.of(context)!;
+    final localeCode = Localizations.localeOf(context).languageCode;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background, 
@@ -29,7 +32,7 @@ class EmotePickerPage extends StatelessWidget {
         ),
         //дата
         title: Text(
-          DateFormat('EEEE, MMM d').format(selectedDate),
+          DateFormat('EEEE, MMM d', localeCode).format(selectedDate),
           style: const TextStyle(color: Colors.grey, fontSize: 16),
         ),
         centerTitle: true,
@@ -37,8 +40,8 @@ class EmotePickerPage extends StatelessWidget {
       body: Column(
         children: [
           const SizedBox(height: 20),
-          const Text(
-            "How are you?",
+          Text(
+            l10n.howAreYou,
             style: TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.bold,
@@ -72,7 +75,10 @@ class EmotePickerPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        moodKey[0].toUpperCase() + moodKey.substring(1),
+                        MoodManager.getTranslation(context, moodKey), 
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey[700],

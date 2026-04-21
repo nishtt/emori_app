@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mood_app/l10n/app_localizations.dart';
+import 'package:mood_app/services/mood_manager.dart';
 
 class InsightsPage extends StatefulWidget {
   const InsightsPage({super.key});
@@ -37,6 +39,8 @@ class _InsightsPageState extends State<InsightsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final localeCode = Localizations.localeOf(context).languageCode;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -50,7 +54,7 @@ class _InsightsPageState extends State<InsightsPage> {
         ),
         //текущий месяц
         title: Text(
-          DateFormat('MMMM yyyy').format(_selectedMonth),
+          DateFormat('LLLL yyyy', localeCode).format(_selectedMonth),
           style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         //стрелка вперед
@@ -67,7 +71,7 @@ class _InsightsPageState extends State<InsightsPage> {
           if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
 
           final docs = snapshot.data!.docs;
-          if (docs.isEmpty) return _buildEmptyState();
+          if (docs.isEmpty) return _buildEmptyState(l10n);
 
           return ListView(
             padding: const EdgeInsets.all(16),
@@ -103,15 +107,16 @@ class _InsightsPageState extends State<InsightsPage> {
   // 1. количество записей за месяц и средний score
   Widget _buildSummaryCard(List<QueryDocumentSnapshot> docs) {
     double avgScore = docs.map((d) => (d.data() as Map)['score'] as int).reduce((a, b) => a + b) / docs.length;
-    
+    final l10n = AppLocalizations.of(context)!;
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: _cardDecoration(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildStatItem("Entries", docs.length.toString()),
-          _buildStatItem("Avg Score", avgScore.toStringAsFixed(1)),
+          _buildStatItem(l10n.entries, docs.length.toString()),
+          _buildStatItem(l10n.avgScore, avgScore.toStringAsFixed(1)),
         ],
       ),
     );
@@ -119,7 +124,8 @@ class _InsightsPageState extends State<InsightsPage> {
 // 2. линейный график изменения настроения + стабильность
 Widget _buildLineChartCard(List<QueryDocumentSnapshot> docs) {
   final int lastDay = DateTime(_selectedMonth.year, _selectedMonth.month + 1, 0).day;
-
+  final l10n = AppLocalizations.of(context)!;
+  
   List<FlSpot> spots = [];
   double totalChange = 0;
   
@@ -150,9 +156,22 @@ Widget _buildLineChartCard(List<QueryDocumentSnapshot> docs) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text("Mood Flow", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-            Text("Mood stability: ${stability.toStringAsFixed(0)}%", 
-                 style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold)),
+            Flexible(
+              child: Text(
+                l10n.moodFlow, 
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                overflow: TextOverflow.ellipsis, 
+              ),
+            ),
+            const SizedBox(width: 8), 
+            Text(
+              "${l10n.moodStability}: ${stability.toStringAsFixed(0)}%", 
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary, 
+                fontWeight: FontWeight.bold,
+                fontSize: 14, 
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 20),
@@ -275,7 +294,10 @@ Widget _buildLineChartCard(List<QueryDocumentSnapshot> docs) {
               children: [
                 Container(width: 10, height: 10, color: _getMoodColor(e.key)),
                 const SizedBox(width: 5),
-                Text(e.key, style: const TextStyle(fontSize: 12)),
+                Text(
+                  MoodManager.getTranslation(context, e.key), 
+                  style: const TextStyle(fontSize: 12)
+                ),
               ],
             )).toList(),
           ),
@@ -302,5 +324,12 @@ Widget _buildLineChartCard(List<QueryDocumentSnapshot> docs) {
     );
   }
   //месяц без записей
-  Widget _buildEmptyState() => const Center(child: Text("No entries for this month"));
+  Widget _buildEmptyState(AppLocalizations l10n) {
+    return Center(
+      child: Text(
+        l10n.noEntries, 
+        style: const TextStyle(color: Colors.grey),
+      ),
+    );
+  }
 }

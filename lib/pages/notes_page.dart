@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:mood_app/components/note_card.dart';
 import 'create_entry_page.dart';
+import 'package:mood_app/l10n/app_localizations.dart';
 
 class NotesPage extends StatefulWidget {
   final DateTime initialDate;
@@ -37,6 +38,8 @@ class _NotesPageState extends State<NotesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final localeCode = Localizations.localeOf(context).languageCode;
+    final l10n = AppLocalizations.of(context)!; 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -58,7 +61,7 @@ class _NotesPageState extends State<NotesPage> {
             SizedBox(
               width: 140,
               child: Text(
-                DateFormat('yyyy MMMM').format(_currentMonth),
+                DateFormat('LLLL yyyy', localeCode).format(_currentMonth),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.black, 
@@ -113,6 +116,7 @@ class _MonthEntriesListState extends State<MonthEntriesList> {
     final user = FirebaseAuth.instance.currentUser;
     final startOfMonth = DateTime(widget.month.year, widget.month.month, 1);
     final endOfMonth = DateTime(widget.month.year, widget.month.month + 1, 0, 23, 59, 59);
+    final l10n = AppLocalizations.of(context)!;
 
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
@@ -131,8 +135,8 @@ class _MonthEntriesListState extends State<MonthEntriesList> {
         final docs = snapshot.data?.docs ?? [];
 
         if (docs.isEmpty) {
-          return const Center(
-            child: Text("No entries for this month", style: TextStyle(color: Colors.grey)),
+          return  Center(
+            child: Text(l10n.noEntries, style: TextStyle(color: Colors.grey)),
           );
         }
 

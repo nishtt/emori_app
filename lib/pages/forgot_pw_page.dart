@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:mood_app/auth/auth_service.dart';
 import 'package:mood_app/components/my_button.dart';
 import 'package:mood_app/components/my_textfield.dart';
 import 'package:mood_app/components/my_alert_dialog.dart'; 
+import 'package:mood_app/l10n/app_localizations.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -13,15 +16,16 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _emailController = TextEditingController();
-
+  
   void resetPassword() async {
     final authService = AuthService();
+    final l10n = AppLocalizations.of(context)!;
     //поле пустое
     if (_emailController.text.isEmpty) {
       showMyDialog(
         context: context,
-        title: "Empty email",
-        message: "Please enter your email to reset password.",
+        title: l10n.emptyEmail,
+        message: l10n.enterEmailToReset,
       );
       return;
     }
@@ -32,8 +36,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       if (mounted) {
         showMyDialog(
           context: context, 
-          title: "Success!", 
-          message: "If an account exists for this email, a reset link has been sent.",
+          title: l10n.success, 
+          message: l10n.resetLinkSent,
           isError: false,
         );
       }
@@ -44,7 +48,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         
         showMyDialog(
           context: context, 
-          title: "Error", 
+          title: l10n.error, 
           message: errorMessage,
         );
       }
@@ -53,6 +57,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent, 
@@ -66,15 +71,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const SizedBox(height: 130),
-            const Text(
-              "Forgot Password?",
+            Text(
+              l10n.forgotPassword,
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             
             const SizedBox(height: 10),
             
-            const Text(
-              "Enter your email and we will send you a link to reset your password",
+            Text(
+              l10n.resetInstructions,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16),
             ),
@@ -89,7 +94,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             
             const SizedBox(height: 25),
             
-            MyButton(text: "Send Link", onTap: resetPassword),
+            MyButton(text: l10n.sendLink, onTap: resetPassword),
           ],
         ),
       ),
