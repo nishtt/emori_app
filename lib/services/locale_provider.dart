@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocaleProvider extends ChangeNotifier {
-  // По умолчанию ставим русский, но ниже мы загрузим сохраненный выбор
+  // по умолчанию русский
   Locale _locale = const Locale('ru');
 
   Locale get locale => _locale;
 
   LocaleProvider() {
-    _loadLocale(); // Загружаем язык при старте приложения
+    _loadLocale(); 
   }
 
   // Метод для смены языка из настроек
@@ -16,7 +16,7 @@ class LocaleProvider extends ChangeNotifier {
     if (!['en', 'ru'].contains(locale.languageCode)) return;
 
     _locale = locale;
-    notifyListeners(); // Уведомляем MaterialApp о необходимости перестроиться
+    notifyListeners(); 
 
     // Сохраняем выбор в память телефона
     final prefs = await SharedPreferences.getInstance();

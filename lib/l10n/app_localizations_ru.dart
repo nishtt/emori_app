@@ -233,4 +233,13 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get resetLinkSent =>
       'Если аккаунт существует, ссылка для сброса была отправлена на почту.';
+
+  @override
+  String get pickTime => 'Выберите время';
+
+  @override
+  String get notificationTitle => 'Как вы себя чувствуете?';
+
+  @override
+  String get notificationBody => 'Пришло время записать ваше настроение!';
 }

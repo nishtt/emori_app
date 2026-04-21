@@ -8,7 +8,8 @@ import 'package:mood_app/services/theme_manager.dart';
 import 'firebase_options.dart'; 
 import 'services/audio_provider.dart';
 import 'package:mood_app/l10n/app_localizations.dart';
-import 'services/locale_provider.dart';
+import 'services/locale_provider.dart'; 
+import 'services/notification_service.dart';
 
 void main() async {
   
@@ -16,6 +17,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await NotificationService.init();
+  await NotificationService.requestPermissions();
   await MoodThemes.loadPack();
 
   final themeManager = ThemeManager();

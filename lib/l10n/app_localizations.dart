@@ -541,6 +541,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'If an account exists for this email, a reset link has been sent.'**
   String get resetLinkSent;
+
+  /// No description provided for @pickTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a time'**
+  String get pickTime;
+
+  /// No description provided for @notificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How are you feeling?'**
+  String get notificationTitle;
+
+  /// No description provided for @notificationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s time to record your mood!'**
+  String get notificationBody;
 }
 
 class _AppLocalizationsDelegate

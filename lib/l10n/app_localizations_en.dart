@@ -231,4 +231,13 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get resetLinkSent =>
       'If an account exists for this email, a reset link has been sent.';
+
+  @override
+  String get pickTime => 'Pick a time';
+
+  @override
+  String get notificationTitle => 'How are you feeling?';
+
+  @override
+  String get notificationBody => 'It\'s time to record your mood!';
 }

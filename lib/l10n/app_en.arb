@@ -72,6 +72,8 @@
   "emptyEmail": "Empty email",
   "enterEmailToReset": "Please enter your email to reset password.",
   "success": "Success!",
-  "resetLinkSent": "If an account exists for this email, a reset link has been sent."
-
+  "resetLinkSent": "If an account exists for this email, a reset link has been sent.",
+  "pickTime": "Pick a time",
+  "notificationTitle": "How are you feeling?",
+  "notificationBody": "It's time to record your mood!"
 }
