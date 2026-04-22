@@ -240,4 +240,66 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notificationBody => 'It\'s time to record your mood!';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get quote1 =>
+      'It\'s no use going back to yesterday, because I was a different person then.';
+
+  @override
+  String get quote2 => 'A great day to be yourself.';
+
+  @override
+  String get quote3 => 'Little steps lead you to a big future';
+
+  @override
+  String get quote4 =>
+      'There\'s nothing wrong with letting people who love you help you.';
+
+  @override
+  String get quote5 => 'Find what you\'d die for and then live for it.';
+
+  @override
+  String get quote6 =>
+      'Shoot for the moon; even  if you miss, you\'ll land among the stars.';
+
+  @override
+  String get quote7 => 'Feelings are just visitors, let them come and go.';
+
+  @override
+  String get quote8 => 'The only way to do great work is to love what you do.';
+
+  @override
+  String get quote9 => 'In the middle of every difficulty lies opportunity.';
+
+  @override
+  String get quote10 =>
+      'If you look for the light, you can often find it. But if you look for the dark, that is all you will ever see.';
+
+  @override
+  String get quote11 =>
+      'In the darkest of times, hope is all we have to believe in. It is the source of our inner strength.';
+
+  @override
+  String get quote12 =>
+      'Let your smile change the world, but don\'t let the world change your smile.';
+
+  @override
+  String get quote13 =>
+      'The greatest glory in living lies not in never falling, but in rising every time we fall.';
+
+  @override
+  String get quote14 =>
+      'Every day may not be good, but there\'s something good in every day.';
+
+  @override
+  String get quote15 => 'You can still be lost on the right path.';
+
+  @override
+  String get quote16 => 'The things we do do things to us.';
+
+  @override
+  String get quote17 => 'Bad days are part of a good life, too.';
 }

@@ -53,6 +53,7 @@ dependencies:
   flutter_local_notifications: ^17.0.0
   timezone: ^0.9.4
   flutter_timezone: ^5.0.2
+  lottie: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -82,6 +83,7 @@ flutter:
      - assets/packs/classic/
      - assets/audio/
      - assets/images/sounds/
+     - assets/animations/
 
      
 

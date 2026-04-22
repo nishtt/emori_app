@@ -45,17 +45,18 @@ class _SettingsPageState extends State<SettingsPage> {
     await prefs.setInt('notification_minute', _selectedTime.minute);
   }
 
-  // Общий метод для планирования (чтобы не дублировать код)
+  
   void _rescheduleNotification(AppLocalizations l10n) {
     NotificationService.scheduleDailyNotification(
-      id: 1, // Важно использовать один и тот же ID
+      id: 1, 
       hour: _selectedTime.hour,
       minute: _selectedTime.minute,
       title: l10n.notificationTitle,
       body: l10n.notificationBody,
     );
   }
-
+  
+  //окно выбора времени для напоминания
   void _showScrollingTimePicker(AppLocalizations l10n) {
     showDialog(
       context: context,
@@ -98,7 +99,7 @@ class _SettingsPageState extends State<SettingsPage> {
             child: TextButton(
               onPressed: () async {
                 await _saveSettings(true);
-                _rescheduleNotification(l10n); // Планируем уведомление
+                _rescheduleNotification(l10n); 
                 Navigator.pop(context);
               },
               child: Text(

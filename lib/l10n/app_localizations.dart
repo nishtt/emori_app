@@ -559,6 +559,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'It\'s time to record your mood!'**
   String get notificationBody;
+
+  /// No description provided for @skip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skip;
+
+  /// No description provided for @quote1.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s no use going back to yesterday, because I was a different person then.'**
+  String get quote1;
+
+  /// No description provided for @quote2.
+  ///
+  /// In en, this message translates to:
+  /// **'A great day to be yourself.'**
+  String get quote2;
+
+  /// No description provided for @quote3.
+  ///
+  /// In en, this message translates to:
+  /// **'Little steps lead you to a big future'**
+  String get quote3;
+
+  /// No description provided for @quote4.
+  ///
+  /// In en, this message translates to:
+  /// **'There\'s nothing wrong with letting people who love you help you.'**
+  String get quote4;
+
+  /// No description provided for @quote5.
+  ///
+  /// In en, this message translates to:
+  /// **'Find what you\'d die for and then live for it.'**
+  String get quote5;
+
+  /// No description provided for @quote6.
+  ///
+  /// In en, this message translates to:
+  /// **'Shoot for the moon; even  if you miss, you\'ll land among the stars.'**
+  String get quote6;
+
+  /// No description provided for @quote7.
+  ///
+  /// In en, this message translates to:
+  /// **'Feelings are just visitors, let them come and go.'**
+  String get quote7;
+
+  /// No description provided for @quote8.
+  ///
+  /// In en, this message translates to:
+  /// **'The only way to do great work is to love what you do.'**
+  String get quote8;
+
+  /// No description provided for @quote9.
+  ///
+  /// In en, this message translates to:
+  /// **'In the middle of every difficulty lies opportunity.'**
+  String get quote9;
+
+  /// No description provided for @quote10.
+  ///
+  /// In en, this message translates to:
+  /// **'If you look for the light, you can often find it. But if you look for the dark, that is all you will ever see.'**
+  String get quote10;
+
+  /// No description provided for @quote11.
+  ///
+  /// In en, this message translates to:
+  /// **'In the darkest of times, hope is all we have to believe in. It is the source of our inner strength.'**
+  String get quote11;
+
+  /// No description provided for @quote12.
+  ///
+  /// In en, this message translates to:
+  /// **'Let your smile change the world, but don\'t let the world change your smile.'**
+  String get quote12;
+
+  /// No description provided for @quote13.
+  ///
+  /// In en, this message translates to:
+  /// **'The greatest glory in living lies not in never falling, but in rising every time we fall.'**
+  String get quote13;
+
+  /// No description provided for @quote14.
+  ///
+  /// In en, this message translates to:
+  /// **'Every day may not be good, but there\'s something good in every day.'**
+  String get quote14;
+
+  /// No description provided for @quote15.
+  ///
+  /// In en, this message translates to:
+  /// **'You can still be lost on the right path.'**
+  String get quote15;
+
+  /// No description provided for @quote16.
+  ///
+  /// In en, this message translates to:
+  /// **'The things we do do things to us.'**
+  String get quote16;
+
+  /// No description provided for @quote17.
+  ///
+  /// In en, this message translates to:
+  /// **'Bad days are part of a good life, too.'**
+  String get quote17;
 }
 
 class _AppLocalizationsDelegate

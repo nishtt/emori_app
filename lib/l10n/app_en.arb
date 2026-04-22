@@ -75,5 +75,24 @@
   "resetLinkSent": "If an account exists for this email, a reset link has been sent.",
   "pickTime": "Pick a time",
   "notificationTitle": "How are you feeling?",
-  "notificationBody": "It's time to record your mood!"
+  "notificationBody": "It's time to record your mood!",
+  "skip": "Skip",
+  "quote1": "It's no use going back to yesterday, because I was a different person then.",
+  "quote2": "A great day to be yourself.",
+  "quote3": "Little steps lead you to a big future",
+  "quote4": "There's nothing wrong with letting people who love you help you.",
+  "quote5": "Find what you'd die for and then live for it.",
+  "quote6": "Shoot for the moon; even  if you miss, you'll land among the stars.",
+  "quote7": "Feelings are just visitors, let them come and go.",
+  "quote8": "The only way to do great work is to love what you do.",
+  "quote9": "In the middle of every difficulty lies opportunity.",
+  "quote10": "If you look for the light, you can often find it. But if you look for the dark, that is all you will ever see.",
+  "quote11": "In the darkest of times, hope is all we have to believe in. It is the source of our inner strength.",
+  "quote12": "Let your smile change the world, but don't let the world change your smile.",
+  "quote13": "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+  "quote14": "Every day may not be good, but there's something good in every day.",
+  "quote15": "You can still be lost on the right path.",
+  "quote16": "The things we do do things to us.",
+  "quote17": "Bad days are part of a good life, too."
+  
 }
