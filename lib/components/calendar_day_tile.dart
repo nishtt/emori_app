@@ -39,7 +39,7 @@ class CalendarDayTile extends StatelessWidget {
       );
     }
 
-    // 2. сегодняшний день без записи
+    // 2. сегодняшний день без записи 
     if (isToday) {
       return Container(
         width: 40,
@@ -60,7 +60,7 @@ class CalendarDayTile extends StatelessWidget {
       );
     }
 
-    // 3. будущий день - неактивная tile
+    // 3. будущий день - неактивный
     if (isFuture) {
       return Text(
         day.toString(),
@@ -68,7 +68,7 @@ class CalendarDayTile extends StatelessWidget {
       );
     }
 
-// 4. прошедший день без записи - placeholder 
+// 4. прошедший день без записи с плейсхолдером
     return Stack(
       alignment: Alignment.center, 
       children: [

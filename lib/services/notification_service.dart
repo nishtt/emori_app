@@ -1,6 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
 
 class NotificationService {
@@ -12,32 +12,19 @@ class NotificationService {
     tz.initializeTimeZones();
     
     try {
-      // 1. Получаем объект/строку
-      final dynamic locationData = await FlutterTimezone.getLocalTimezone();
-      String timeZoneName;
-
-      // 2. Пытаемся извлечь чистый ID (например, "Europe/Moscow")
-      if (locationData is String) {
-        timeZoneName = locationData;
-      } else {
-        // Если это объект TimezoneInfo, пробуем разные свойства
-        // В версии 5.x обычно работает метод .name или .timezone
-        // Но самый надежный способ — это достать то, что внутри скобок или до них
-        timeZoneName = locationData.toString();
-
-        // Если строка выглядит как "TimezoneInfo(ID, ...)", достаем ID
-        if (timeZoneName.contains('(')) {
-          timeZoneName = timeZoneName.split('(')[1].split(',')[0].trim();
-        }
-      }
+      // 1. Получаем объект TimezoneInfo
+      final locationData = await FlutterTimezone.getLocalTimezone();
+      
+      // 2. В версии 5.0.2 используем поле .id
+      String timeZoneName = locationData.identifier; 
 
       print("Final TimeZone: $timeZoneName");
       tz.setLocalLocation(tz.getLocation(timeZoneName));
 
     } catch (e) {
-      print("Error setting timezone, falling back to UTC: $e");
-      // Если что-то пошло не так, ставим UTC, чтобы приложение не упало
-      tz.setLocalLocation(tz.getLocation('UTC'));
+      print("Error setting timezone, falling back: $e");
+      // Безопасный вариант для диплома
+      tz.setLocalLocation(tz.getLocation('Europe/Moscow'));
     }
 
     const AndroidInitializationSettings androidSettings =
@@ -51,7 +38,7 @@ class NotificationService {
     // Создаём канал
     final androidPlugin = _notifications.resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>();
-    
+
     await androidPlugin?.createNotificationChannel(
       const AndroidNotificationChannel(
         'daily_channel_id',
@@ -71,7 +58,7 @@ class NotificationService {
   }) async {
     // ФИКС №2: Считаем время относительно локального пояса, а не UTC
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    
+
     tz.TZDateTime scheduledDate = tz.TZDateTime(
       tz.local,
       now.year,
@@ -107,7 +94,7 @@ class NotificationService {
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
       // ФИКС №3: Указываем, что уведомление должно повторяться ежедневно
-      matchDateTimeComponents: DateTimeComponents.time, 
+      matchDateTimeComponents: DateTimeComponents.time,
     );
   }
 
@@ -115,7 +102,7 @@ class NotificationService {
   static Future<void> requestPermissions() async {
     final android = _notifications.resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>();
-    
+
     if (android != null) {
       await android.requestNotificationsPermission();
       await android.requestExactAlarmsPermission();

@@ -55,7 +55,7 @@ class _SettingsPageState extends State<SettingsPage> {
       body: l10n.notificationBody,
     );
   }
-  
+
   //окно выбора времени для напоминания
   void _showScrollingTimePicker(AppLocalizations l10n) {
     showDialog(
@@ -122,6 +122,7 @@ class _SettingsPageState extends State<SettingsPage> {
     auth.signOut();
   }
 
+  //окно выбора языка
   void _showLanguageDialog(BuildContext context) {
     final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
 
@@ -129,7 +130,8 @@ class _SettingsPageState extends State<SettingsPage> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context)!.selectLanguage),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),  side: const BorderSide(color: Colors.black, width: 1.2)),
+        backgroundColor: Theme.of(context).colorScheme.background,
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -155,14 +157,18 @@ class _SettingsPageState extends State<SettingsPage> {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         children: [
+          
           _buildSectionTitle(l10n.general),
+          // язык
           _buildSettingsTile(
             icon: Icons.language_rounded,
             title: l10n.language,
             subtitle: l10n.languageSubtitle,
             onTap: () => _showLanguageDialog(context),
           ),
+
           _buildSectionTitle(l10n.appearance),
+          //темы
           _buildSettingsTile(
             icon: Icons.palette_outlined,
             title: l10n.appTheme,
@@ -171,6 +177,7 @@ class _SettingsPageState extends State<SettingsPage> {
               Navigator.push(context, MaterialPageRoute(builder: (context) => const ThemesPage()));
             },
           ),
+          // паки
           _buildSettingsTile(
             icon: Icons.emoji_emotions_outlined,
             title: l10n.moodPacks,
@@ -182,7 +189,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
           const SizedBox(height: 20),
 
-          // РАЗДЕЛ НАПОМИНАНИЙ
+          // уведомления
           _buildSectionTitle(l10n.notifications),
           Container(
             margin: const EdgeInsets.only(bottom: 10),
@@ -197,7 +204,6 @@ class _SettingsPageState extends State<SettingsPage> {
               subtitle: Text(_isNotificationOn
                   ? "${l10n.dailyReminderSubtitle}: ${_selectedTime.format(context)}"
                   : l10n.dailyReminderSubtitle),
-              // ФИКС: Клик по всей плитке для изменения времени
               onTap: _isNotificationOn ? () => _showScrollingTimePicker(l10n) : null,
               trailing: Switch(
                 value: _isNotificationOn,
@@ -207,7 +213,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     await NotificationService.requestPermissions();
                     _showScrollingTimePicker(l10n);
                   } else {
-                    NotificationService.cancelAll(); // Отмена всех
+                    NotificationService.cancelAll(); 
                     await _saveSettings(false);
                   }
                   setState(() {
@@ -221,6 +227,7 @@ class _SettingsPageState extends State<SettingsPage> {
           const SizedBox(height: 20),
 
           _buildSectionTitle(l10n.account),
+          //выход из аккаунта
           _buildSettingsTile(
             icon: Icons.logout_rounded,
             title: l10n.logout,
@@ -244,7 +251,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
-
+  //виджет раздела
   Widget _buildSectionTitle(String title) {
     return Padding(
       padding: const EdgeInsets.only(left: 8, bottom: 8, top: 10),
@@ -254,7 +261,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
-
+  //виджет настройки
   Widget _buildSettingsTile({
     required IconData icon,
     required String title,

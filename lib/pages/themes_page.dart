@@ -46,14 +46,22 @@ class ThemesPage extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  
+
                   Container(
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: option.previewColor,
                       shape: BoxShape.circle,
-                      border: Border.all(color: Colors.black26),
+                      border: Border.all(color: Colors.black26, width: 1),
+                      gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          option.themeData.colorScheme.background, 
+                          option.themeData.colorScheme.primary,  
+                        ],
+                        stops: const [0.5, 0.5], 
+                      ),
                     ),
                   ),
                   const SizedBox(width: 20),
