@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mood_app/l10n/app_localizations.dart';
 import 'package:mood_app/services/mood_manager.dart';
+import 'package:mood_app/services/entry_service.dart';
 
 class InsightsPage extends StatefulWidget {
   const InsightsPage({super.key});
@@ -14,6 +14,7 @@ class InsightsPage extends StatefulWidget {
 }
 
 class _InsightsPageState extends State<InsightsPage> {
+  final EntryService _entryService = EntryService();
   DateTime _selectedMonth = DateTime.now();
 
   Color _getMoodColor(String moodKey) {
@@ -42,7 +43,7 @@ class _InsightsPageState extends State<InsightsPage> {
     final l10n = AppLocalizations.of(context)!;
     final localeCode = Localizations.localeOf(context).languageCode;
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -89,19 +90,8 @@ class _InsightsPageState extends State<InsightsPage> {
   }
 
   // cтрим данных для конкретного месяца
-  Stream<QuerySnapshot> _getMoodStream() {
-    final user = FirebaseAuth.instance.currentUser;
-    DateTime firstDay = DateTime(_selectedMonth.year, _selectedMonth.month, 1);
-    DateTime lastDay = DateTime(_selectedMonth.year, _selectedMonth.month + 1, 0);
-
-    return FirebaseFirestore.instance
-        .collection('users')
-        .doc(user?.uid)
-        .collection('entries')
-        .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(firstDay))
-        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(lastDay))
-        .orderBy('date')
-        .snapshots();
+  Stream<QuerySnapshot<Map<String, dynamic>>> _getMoodStream() {
+    return _entryService.watchEntriesForMonth(_selectedMonth);
   }
 
   // 1. количество записей за месяц и средний score

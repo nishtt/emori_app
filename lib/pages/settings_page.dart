@@ -65,7 +65,7 @@ class _SettingsPageState extends State<SettingsPage> {
           borderRadius: BorderRadius.circular(20),
           side: const BorderSide(color: Colors.black, width: 1.2),
         ),
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         title: Text(
           l10n.dailyReminder,
           textAlign: TextAlign.center,
@@ -77,7 +77,7 @@ class _SettingsPageState extends State<SettingsPage> {
             data: CupertinoThemeData(
               textTheme: CupertinoTextThemeData(
                 dateTimePickerTextStyle: TextStyle(
-                  color: Theme.of(context).colorScheme.onBackground,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 22,
                 ),
               ),
@@ -131,7 +131,7 @@ class _SettingsPageState extends State<SettingsPage> {
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context)!.selectLanguage),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),  side: const BorderSide(color: Colors.black, width: 1.2)),
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -147,7 +147,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(l10n.settings, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
         centerTitle: true,
@@ -207,7 +207,7 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: _isNotificationOn ? () => _showScrollingTimePicker(l10n) : null,
               trailing: Switch(
                 value: _isNotificationOn,
-                activeColor: Theme.of(context).colorScheme.primary,
+                activeThumbColor: Theme.of(context).colorScheme.primary,
                 onChanged: (bool value) async {
                   if (value) {
                     await NotificationService.requestPermissions();

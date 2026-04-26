@@ -14,7 +14,7 @@ class _MoodPacksPageState extends State<MoodPacksPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(l10n.chooseMoodPack, style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.transparent,

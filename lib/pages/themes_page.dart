@@ -11,7 +11,7 @@ class ThemesPage extends StatelessWidget {
     final themeManager = Provider.of<ThemeManager>(context);
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(l10n.appThemes, style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.transparent,
@@ -57,7 +57,7 @@ class ThemesPage extends StatelessWidget {
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                         colors: [
-                          option.themeData.colorScheme.background, 
+                          option.themeData.colorScheme.surface, 
                           option.themeData.colorScheme.primary,  
                         ],
                         stops: const [0.5, 0.5], 

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:mood_app/components/note_card.dart';
 import 'create_entry_page.dart';
 import 'package:mood_app/l10n/app_localizations.dart';
+import 'package:mood_app/models/mood_entry.dart';
+import 'package:mood_app/services/entry_service.dart';
 
 class NotesPage extends StatefulWidget {
   final DateTime initialDate;
@@ -39,11 +40,10 @@ class _NotesPageState extends State<NotesPage> {
   @override
   Widget build(BuildContext context) {
     final localeCode = Localizations.localeOf(context).languageCode;
-    final l10n = AppLocalizations.of(context)!; 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         //кнопка назад
         leading: IconButton(
@@ -108,25 +108,18 @@ class MonthEntriesList extends StatefulWidget {
 }
 
 class _MonthEntriesListState extends State<MonthEntriesList> {
+  final EntryService _entryService = EntryService();
   final ItemScrollController _itemScrollController = ItemScrollController();
   
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
-    final startOfMonth = DateTime(widget.month.year, widget.month.month, 1);
-    final endOfMonth = DateTime(widget.month.year, widget.month.month + 1, 0, 23, 59, 59);
+  
     final l10n = AppLocalizations.of(context)!;
 
+
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection('users')
-          .doc(user?.uid)
-          .collection('entries')
-          .where('date', isGreaterThanOrEqualTo: startOfMonth)
-          .where('date', isLessThanOrEqualTo: endOfMonth)
-          .orderBy('date', descending: false)
-          .snapshots(),
+      stream: _entryService.watchEntriesForMonth(widget.month),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator(color: Colors.black));
@@ -160,20 +153,20 @@ class _MonthEntriesListState extends State<MonthEntriesList> {
           itemCount: docs.length,
           itemBuilder: (context, index) {
             final data = docs[index].data() as Map<String, dynamic>;
-            final date = (data['date'] as Timestamp).toDate();
+            final entry = MoodEntry.fromMap(data, docs[index].id);
 
             return NoteCard(
-              data: data,
+              entry: entry,
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => CreateEntryPage(
-                      date: date,
-                      moodKey: data['moodKey'],
-                      score: data['score'],
-                      initialText: data['note'],
-                      isEditing: true,
+                      date: entry.date,
+                      moodKey: entry.moodKey,
+                      score: entry.score,
+                      initialText: entry.note,
+                      mode: EntryMode.edit,
                     ),
                   ),
                 );

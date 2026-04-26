@@ -12,11 +12,9 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-
-  
-
+  //домашняя страница
   int _selectedIndex = 1;
-
+  //меняем вкладку
   void _navigateBottomBar (int index) {
     setState(() {
       _selectedIndex = index;
@@ -39,7 +37,7 @@ class _AppState extends State<App> {
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         currentIndex: _selectedIndex,
         onTap: _navigateBottomBar,
         type: BottomNavigationBarType.fixed,

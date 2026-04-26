@@ -8,7 +8,7 @@ import 'package:mood_app/l10n/app_localizations.dart';
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
   
-  RegisterPage({super.key, required this.onTap});
+  const RegisterPage({super.key, required this.onTap});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -21,7 +21,7 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _isLoading = false; 
 
   void register(BuildContext context) async {
-    final _auth = AuthService();
+    final auth = AuthService();
     final l10n = AppLocalizations.of(context)!;
 
     // валидация пустых полей
@@ -45,7 +45,7 @@ class _RegisterPageState extends State<RegisterPage> {
     setState(() => _isLoading = true); 
 
     try {
-      await _auth.signUpWithEmailPassword(_emailController.text.trim(), _pwController.text.trim());
+      await auth.signUpWithEmailPassword(_emailController.text.trim(), _pwController.text.trim());
     } catch (e) {
       if (mounted) {
         showMyDialog(
@@ -60,10 +60,18 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    _pwController.dispose();
+    _confirmPwController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Center(
         child: SingleChildScrollView( 
           child: Column (

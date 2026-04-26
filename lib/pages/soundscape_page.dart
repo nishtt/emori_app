@@ -13,7 +13,7 @@ class SoundscapePage extends StatelessWidget {
     final audioProvider = Provider.of<AudioProvider>(context);
     final double bottomInset = audioProvider.currentSound != null ? 100.0 : 16.0;
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(l10n.soundscape, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
         centerTitle: true,

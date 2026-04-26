@@ -21,9 +21,9 @@ class EmotePickerPage extends StatelessWidget {
     final localeCode = Localizations.localeOf(context).languageCode;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background, 
+      backgroundColor: Theme.of(context).colorScheme.surface, 
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         //закрытие
         leading: IconButton(
@@ -113,7 +113,7 @@ class EmotePickerPage extends StatelessWidget {
           date: selectedDate,
           moodKey: moodKey,
           score: MoodManager.getScore(moodKey),
-          isEditing: false, 
+          mode: EntryMode.create
         ),
       ),
     );

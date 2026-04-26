@@ -14,13 +14,16 @@ import 'services/notification_service.dart';
 void main() async {
   
   WidgetsFlutterBinding.ensureInitialized(); 
+  //подключение к Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  //инициализация уведомлений и запрашивание разрешений
   await NotificationService.init();
   await NotificationService.requestPermissions();
+  //загрузка набора эмодзи
   await MoodThemes.loadPack();
-
+  // загрузка темы
   final themeManager = ThemeManager();
   await themeManager.loadTheme();
 
@@ -41,11 +44,13 @@ class MoodTrackerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    //текущая тема и язык
     final themeManager = Provider.of<ThemeManager>(context);
     final localeProvider = Provider.of<LocaleProvider>(context);
 
+   
     return ValueListenableBuilder<MoodPack>(
+       //перерисовка приложения при смене набора эмодзи
       valueListenable: MoodThemes.selectedPackNotifier,
       builder: (context, pack, child) {
         return MaterialApp(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mood_app/l10n/app_localizations.dart';
 //для подтверждения действий
 void showConfirmDialog({
   required BuildContext context,
@@ -17,7 +16,7 @@ void showConfirmDialog({
         borderRadius: BorderRadius.circular(20),
         side: const BorderSide(color: Colors.black, width: 1.2),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       title: Text(title, 
         textAlign: TextAlign.center, 
         style: const TextStyle(fontWeight: FontWeight.bold)
@@ -61,7 +60,7 @@ void showMyDialog({
       shape: RoundedRectangleBorder( 
         borderRadius: BorderRadius.circular(20),
         side: const BorderSide(color: Colors.black, width: 1.2),),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       title: Column(
         children: [
           

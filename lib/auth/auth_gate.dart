@@ -12,7 +12,7 @@ class AuthGate extends StatefulWidget {
 }
 
 class _AuthGateState extends State<AuthGate> {
-  bool _showWelcome = true;
+  bool _showWelcome = true;//показывать экран приветствия
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +28,13 @@ class _AuthGateState extends State<AuthGate> {
             },
           );
         }
-
+        //загрузка
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           );
         }
-
+        // пользователь авторизован - показать основное приложение, иначе - экран входа/регистрации
         if (snapshot.hasData) {
           return const App();
         } else {
