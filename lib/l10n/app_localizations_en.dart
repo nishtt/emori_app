@@ -302,4 +302,118 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quote17 => 'Bad days are part of a good life, too.';
+
+  @override
+  String get activities => 'Activities';
+
+  @override
+  String get health => 'Health';
+
+  @override
+  String get activity_walk => 'walk';
+
+  @override
+  String get activity_sport => 'sport';
+
+  @override
+  String get activity_water => 'water';
+
+  @override
+  String get activity_medicine => 'medicine';
+
+  @override
+  String get activity_healthy_food => 'healthy food';
+
+  @override
+  String get sleep => 'Sleep';
+
+  @override
+  String get activity_good_sleep => 'good sleep';
+
+  @override
+  String get activity_bad_sleep => 'bad sleep';
+
+  @override
+  String get activity_early_wake => 'early wake';
+
+  @override
+  String get activity_nap => 'nap';
+
+  @override
+  String get weather => 'Weather';
+
+  @override
+  String get activity_sunny => 'sunny';
+
+  @override
+  String get activity_rain => 'rain';
+
+  @override
+  String get activity_cloudy => 'cloudy';
+
+  @override
+  String get activity_snow => 'snow';
+
+  @override
+  String get activity_windy => 'windy';
+
+  @override
+  String get hobbies => 'Hobbies';
+
+  @override
+  String get activity_reading => 'reading';
+
+  @override
+  String get activity_music => 'music';
+
+  @override
+  String get activity_drawing => 'drawing';
+
+  @override
+  String get activity_games => 'games';
+
+  @override
+  String get work_or_study => 'Work or Study';
+
+  @override
+  String get activity_study => 'study';
+
+  @override
+  String get activity_work => 'work';
+
+  @override
+  String get activity_deadline => 'deadline';
+
+  @override
+  String get activity_meeting => 'meeting';
+
+  @override
+  String get activity_junk_food => 'junk food';
+
+  @override
+  String get activity_alcohol => 'alcohol';
+
+  @override
+  String get activity_smoking => 'smoking';
+
+  @override
+  String get activity_doomscrolling => 'doomscrolling';
+
+  @override
+  String get social_activity => 'Social activity';
+
+  @override
+  String get activity_friends => 'friends';
+
+  @override
+  String get activity_family => 'family';
+
+  @override
+  String get activity_argument => 'argument';
+
+  @override
+  String get activity_awkward_situation => 'awkward situation';
+
+  @override
+  String get activity_staying_at_home => 'staying at home';
 }

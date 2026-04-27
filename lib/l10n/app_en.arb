@@ -93,6 +93,51 @@
   "quote14": "Every day may not be good, but there's something good in every day.",
   "quote15": "You can still be lost on the right path.",
   "quote16": "The things we do do things to us.",
-  "quote17": "Bad days are part of a good life, too."
+  "quote17": "Bad days are part of a good life, too.",
   
+  "activities": "Activities",
+  "health": "Health",
+  "activity_walk": "walk",
+  "activity_sport": "sport",
+  "activity_water": "water",
+  "activity_medicine": "medicine",
+  "activity_healthy_food": "healthy food",
+
+  "sleep": "Sleep",
+  "activity_good_sleep": "good sleep",
+  "activity_bad_sleep": "bad sleep",
+  "activity_early_wake": "early wake",
+  "activity_nap": "nap",
+
+  "weather": "Weather",
+  "activity_sunny": "sunny",
+  "activity_rain": "rain",
+  "activity_cloudy": "cloudy",
+  "activity_snow": "snow",
+  "activity_windy": "windy",
+
+  "hobbies": "Hobbies",
+  "activity_reading": "reading",
+  "activity_music": "music",
+  "activity_drawing": "drawing",
+  "activity_games": "games",
+
+  "work_or_study": "Work or Study",
+  "activity_study": "study",
+  "activity_work": "work",
+  "activity_deadline": "deadline",
+  "activity_meeting": "meeting",
+
+  "activity_junk_food": "junk food",
+  "activity_alcohol": "alcohol",
+  "activity_smoking": "smoking",
+  "activity_doomscrolling": "doomscrolling",
+
+  "social_activity": "Social activity",
+  "activity_friends": "friends",
+  "activity_family": "family",
+  "activity_argument": "argument",
+  "activity_awkward_situation": "awkward situation",
+  "activity_staying_at_home": "staying at home"
+
 }

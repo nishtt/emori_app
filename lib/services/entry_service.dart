@@ -31,7 +31,7 @@ class EntryService {
     final entries = _entriesCollection;
 
     if (entries == null) {
-      return;
+      throw Exception('User is not authorized');
     }
 
     await entries.doc(entry.id).set(entry.toMap());

@@ -93,6 +93,50 @@
   "quote14": "Не каждый день будет хорошим, но в каждом дне есть что-то хорошее.",
   "quote15": "Ты можешь быть потерянным находясь на правильном пути.",
   "quote16": "То, что мы делаем, делает что-то с нами.",
-  "quote17": "Плохие дни тоже часть хорошей жизни."
+  "quote17": "Плохие дни тоже часть хорошей жизни.",
 
+  "activities": "Деятельность",
+  "health": "Здоровье",
+  "activity_walk": "прогулка",
+  "activity_sport": "спорт",
+  "activity_water": "вода",
+  "activity_medicine": "лекарство",
+  "activity_healthy_food": "здоровая пища",
+
+  "sleep": "Сон",
+  "activity_good_sleep": "хороший сон",
+  "activity_bad_sleep": "плохой сон",
+  "activity_early_wake": "ранний подъем",
+  "activity_nap": "дневной сон",
+
+  "weather": "Погода",
+  "activity_sunny": "солнце",
+  "activity_rain": "дождь",
+  "activity_cloudy": "облачно",
+  "activity_snow": "снег",
+  "activity_windy": "ветрено",
+
+  "hobbies": "Хобби",
+  "activity_reading": "чтение",
+  "activity_music": "музыка",
+  "activity_drawing": "рисование",
+  "activity_games": "игры",
+
+  "work_or_study": "Работа или учеба",
+  "activity_study": "учеба",
+  "activity_work": "работа",
+  "activity_deadline": "дедлайн",
+  "activity_meeting": "встреча", 
+
+  "activity_junk_food": "вредная пища", 
+  "activity_alcohol": "алкоголь",
+  "activity_smoking": "курение",
+  "activity_doomscrolling": "думскроллинг",
+
+  "social_activity": "Социальная активность",
+  "activity_friends": "друзья",
+  "activity_family": "семья",
+  "activity_argument": "спор",
+  "activity_awkward_situation": "неловкая ситуация",
+  "activity_staying_at_home": "остаться дома"
 }

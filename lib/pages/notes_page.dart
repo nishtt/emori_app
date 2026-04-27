@@ -166,6 +166,7 @@ class _MonthEntriesListState extends State<MonthEntriesList> {
                       moodKey: entry.moodKey,
                       score: entry.score,
                       initialText: entry.note,
+                      initialActivities: entry.activities,
                       mode: EntryMode.edit,
                     ),
                   ),

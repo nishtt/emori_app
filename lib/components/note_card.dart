@@ -5,6 +5,7 @@ import '../components/my_alert_dialog.dart';
 import 'package:mood_app/l10n/app_localizations.dart';
 import 'package:mood_app/models/mood_entry.dart';
 import 'package:mood_app/services/entry_service.dart';
+import 'package:mood_app/models/activity_item.dart';
 
 class NoteCard extends StatelessWidget {
   final MoodEntry entry;
@@ -34,6 +35,44 @@ class NoteCard extends StatelessWidget {
           debugPrint("Error deleting: $e");
         }
       },
+    );
+  }
+
+  Widget _buildActivityTags(BuildContext context) {
+    if (entry.activities.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Center(
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        alignment: WrapAlignment.center,
+        children: entry.activities.map((key) {
+          final activity = getActivityByKey(key);
+
+          if (activity == null) {
+            return const SizedBox.shrink();
+          }
+
+          return Chip(
+            label: Text(getActivityLabel(context, key)),
+            avatar: Icon(
+              activity.icon,
+              size: 18,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            backgroundColor: Colors.white.withOpacity(0.6),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              side: BorderSide(
+                color: Theme.of(context).colorScheme.primary,
+                width: 1,
+              ),
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
 
@@ -129,6 +168,12 @@ class NoteCard extends StatelessWidget {
             ),
 
             const SizedBox(height: 15),
+
+            // активности
+            _buildActivityTags(context),
+
+            if (entry.activities.isNotEmpty)
+              const SizedBox(height: 15),
 
             // текст заметки
             if (entry.note.isNotEmpty)

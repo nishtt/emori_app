@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import '../services/mood_manager.dart';
 import 'emote_picker_page.dart';
 import 'package:mood_app/l10n/app_localizations.dart';
 import 'package:mood_app/services/entry_service.dart';
 import 'package:mood_app/models/mood_entry.dart';
+import 'package:mood_app/pages/activities_picker_page.dart';
+import 'package:mood_app/models/activity_item.dart';
 
 enum EntryMode {
   create,
@@ -16,6 +19,7 @@ class CreateEntryPage extends StatefulWidget {
   final String moodKey;
   final int score;
   final String? initialText;
+  final List<String> initialActivities;
   final EntryMode mode;
 
   const CreateEntryPage({
@@ -24,6 +28,7 @@ class CreateEntryPage extends StatefulWidget {
     required this.moodKey,
     required this.score,
     this.initialText,
+    this.initialActivities = const [],
     this.mode = EntryMode.create,
   });
 
@@ -33,10 +38,11 @@ class CreateEntryPage extends StatefulWidget {
 
 class _CreateEntryPageState extends State<CreateEntryPage> {
   final EntryService _entryService = EntryService();
-  late TextEditingController _noteController;
 
+  late TextEditingController _noteController;
   late String _currentMoodKey;
   late int _currentScore;
+  late List<String> _selectedActivities;
 
   @override
   void initState() {
@@ -45,6 +51,7 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
     _noteController = TextEditingController(text: widget.initialText ?? "");
     _currentMoodKey = widget.moodKey;
     _currentScore = widget.score;
+    _selectedActivities = List<String>.from(widget.initialActivities);
   }
 
   @override
@@ -80,6 +87,25 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
     }
   }
 
+  Future<void> _openActivitiesPicker() async {
+    FocusScope.of(context).unfocus();
+
+    final result = await Navigator.push<List<String>>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ActivitiesPickerPage(
+          selectedActivities: _selectedActivities,
+        ),
+      ),
+    );
+
+    if (result != null) {
+      setState(() {
+        _selectedActivities = result;
+      });
+    }
+  }
+
   Future<void> _saveEntry() async {
     final l10n = AppLocalizations.of(context)!;
 
@@ -92,6 +118,7 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
         moodKey: _currentMoodKey,
         score: _currentScore,
         note: _noteController.text.trim(),
+        activities: _selectedActivities,
       );
 
       await _entryService.saveEntry(entry);
@@ -106,6 +133,44 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
         );
       }
     }
+  }
+
+  Widget _buildActivityTags() {
+    if (_selectedActivities.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Center(
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        alignment: WrapAlignment.center,
+        children: _selectedActivities.map((key) {
+          final activity = getActivityByKey(key);
+
+          if (activity == null) {
+            return const SizedBox.shrink();
+          }
+
+          return Chip(
+            label: Text(getActivityLabel(context, key)),
+            avatar: Icon(
+              activity.icon,
+              size: 18,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            backgroundColor: Colors.white.withOpacity(0.6),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              side: BorderSide(
+                color: Theme.of(context).colorScheme.primary,
+                width: 1,
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
   }
 
   @override
@@ -151,22 +216,45 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        DateFormat('E.', localeCode).format(widget.date),
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.underline,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            DateFormat('E.', localeCode).format(widget.date),
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                          Text(
+                            DateFormat('MM.dd').format(widget.date),
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        DateFormat('MM.dd').format(widget.date),
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
+
+                      GestureDetector(
+                        onTap: _openActivitiesPicker,
+                        child: Container(
+                          width: 34,
+                          height: 34,
+                          decoration: const BoxDecoration(
+                            color: Colors.black,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 22,
+                          ),
                         ),
                       ),
                     ],
@@ -212,6 +300,11 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
                   ),
 
                   const SizedBox(height: 15),
+
+                  _buildActivityTags(),
+
+                  if (_selectedActivities.isNotEmpty)
+                    const SizedBox(height: 15),
 
                   TextField(
                     controller: _noteController,

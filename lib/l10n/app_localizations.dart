@@ -667,6 +667,234 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Bad days are part of a good life, too.'**
   String get quote17;
+
+  /// No description provided for @activities.
+  ///
+  /// In en, this message translates to:
+  /// **'Activities'**
+  String get activities;
+
+  /// No description provided for @health.
+  ///
+  /// In en, this message translates to:
+  /// **'Health'**
+  String get health;
+
+  /// No description provided for @activity_walk.
+  ///
+  /// In en, this message translates to:
+  /// **'walk'**
+  String get activity_walk;
+
+  /// No description provided for @activity_sport.
+  ///
+  /// In en, this message translates to:
+  /// **'sport'**
+  String get activity_sport;
+
+  /// No description provided for @activity_water.
+  ///
+  /// In en, this message translates to:
+  /// **'water'**
+  String get activity_water;
+
+  /// No description provided for @activity_medicine.
+  ///
+  /// In en, this message translates to:
+  /// **'medicine'**
+  String get activity_medicine;
+
+  /// No description provided for @activity_healthy_food.
+  ///
+  /// In en, this message translates to:
+  /// **'healthy food'**
+  String get activity_healthy_food;
+
+  /// No description provided for @sleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep'**
+  String get sleep;
+
+  /// No description provided for @activity_good_sleep.
+  ///
+  /// In en, this message translates to:
+  /// **'good sleep'**
+  String get activity_good_sleep;
+
+  /// No description provided for @activity_bad_sleep.
+  ///
+  /// In en, this message translates to:
+  /// **'bad sleep'**
+  String get activity_bad_sleep;
+
+  /// No description provided for @activity_early_wake.
+  ///
+  /// In en, this message translates to:
+  /// **'early wake'**
+  String get activity_early_wake;
+
+  /// No description provided for @activity_nap.
+  ///
+  /// In en, this message translates to:
+  /// **'nap'**
+  String get activity_nap;
+
+  /// No description provided for @weather.
+  ///
+  /// In en, this message translates to:
+  /// **'Weather'**
+  String get weather;
+
+  /// No description provided for @activity_sunny.
+  ///
+  /// In en, this message translates to:
+  /// **'sunny'**
+  String get activity_sunny;
+
+  /// No description provided for @activity_rain.
+  ///
+  /// In en, this message translates to:
+  /// **'rain'**
+  String get activity_rain;
+
+  /// No description provided for @activity_cloudy.
+  ///
+  /// In en, this message translates to:
+  /// **'cloudy'**
+  String get activity_cloudy;
+
+  /// No description provided for @activity_snow.
+  ///
+  /// In en, this message translates to:
+  /// **'snow'**
+  String get activity_snow;
+
+  /// No description provided for @activity_windy.
+  ///
+  /// In en, this message translates to:
+  /// **'windy'**
+  String get activity_windy;
+
+  /// No description provided for @hobbies.
+  ///
+  /// In en, this message translates to:
+  /// **'Hobbies'**
+  String get hobbies;
+
+  /// No description provided for @activity_reading.
+  ///
+  /// In en, this message translates to:
+  /// **'reading'**
+  String get activity_reading;
+
+  /// No description provided for @activity_music.
+  ///
+  /// In en, this message translates to:
+  /// **'music'**
+  String get activity_music;
+
+  /// No description provided for @activity_drawing.
+  ///
+  /// In en, this message translates to:
+  /// **'drawing'**
+  String get activity_drawing;
+
+  /// No description provided for @activity_games.
+  ///
+  /// In en, this message translates to:
+  /// **'games'**
+  String get activity_games;
+
+  /// No description provided for @work_or_study.
+  ///
+  /// In en, this message translates to:
+  /// **'Work or Study'**
+  String get work_or_study;
+
+  /// No description provided for @activity_study.
+  ///
+  /// In en, this message translates to:
+  /// **'study'**
+  String get activity_study;
+
+  /// No description provided for @activity_work.
+  ///
+  /// In en, this message translates to:
+  /// **'work'**
+  String get activity_work;
+
+  /// No description provided for @activity_deadline.
+  ///
+  /// In en, this message translates to:
+  /// **'deadline'**
+  String get activity_deadline;
+
+  /// No description provided for @activity_meeting.
+  ///
+  /// In en, this message translates to:
+  /// **'meeting'**
+  String get activity_meeting;
+
+  /// No description provided for @activity_junk_food.
+  ///
+  /// In en, this message translates to:
+  /// **'junk food'**
+  String get activity_junk_food;
+
+  /// No description provided for @activity_alcohol.
+  ///
+  /// In en, this message translates to:
+  /// **'alcohol'**
+  String get activity_alcohol;
+
+  /// No description provided for @activity_smoking.
+  ///
+  /// In en, this message translates to:
+  /// **'smoking'**
+  String get activity_smoking;
+
+  /// No description provided for @activity_doomscrolling.
+  ///
+  /// In en, this message translates to:
+  /// **'doomscrolling'**
+  String get activity_doomscrolling;
+
+  /// No description provided for @social_activity.
+  ///
+  /// In en, this message translates to:
+  /// **'Social activity'**
+  String get social_activity;
+
+  /// No description provided for @activity_friends.
+  ///
+  /// In en, this message translates to:
+  /// **'friends'**
+  String get activity_friends;
+
+  /// No description provided for @activity_family.
+  ///
+  /// In en, this message translates to:
+  /// **'family'**
+  String get activity_family;
+
+  /// No description provided for @activity_argument.
+  ///
+  /// In en, this message translates to:
+  /// **'argument'**
+  String get activity_argument;
+
+  /// No description provided for @activity_awkward_situation.
+  ///
+  /// In en, this message translates to:
+  /// **'awkward situation'**
+  String get activity_awkward_situation;
+
+  /// No description provided for @activity_staying_at_home.
+  ///
+  /// In en, this message translates to:
+  /// **'staying at home'**
+  String get activity_staying_at_home;
 }
 
 class _AppLocalizationsDelegate

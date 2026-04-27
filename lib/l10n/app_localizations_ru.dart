@@ -307,4 +307,118 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get quote17 => 'Плохие дни тоже часть хорошей жизни.';
+
+  @override
+  String get activities => 'Деятельность';
+
+  @override
+  String get health => 'Здоровье';
+
+  @override
+  String get activity_walk => 'прогулка';
+
+  @override
+  String get activity_sport => 'спорт';
+
+  @override
+  String get activity_water => 'вода';
+
+  @override
+  String get activity_medicine => 'лекарство';
+
+  @override
+  String get activity_healthy_food => 'здоровая пища';
+
+  @override
+  String get sleep => 'Сон';
+
+  @override
+  String get activity_good_sleep => 'хороший сон';
+
+  @override
+  String get activity_bad_sleep => 'плохой сон';
+
+  @override
+  String get activity_early_wake => 'ранний подъем';
+
+  @override
+  String get activity_nap => 'дневной сон';
+
+  @override
+  String get weather => 'Погода';
+
+  @override
+  String get activity_sunny => 'солнце';
+
+  @override
+  String get activity_rain => 'дождь';
+
+  @override
+  String get activity_cloudy => 'облачно';
+
+  @override
+  String get activity_snow => 'снег';
+
+  @override
+  String get activity_windy => 'ветрено';
+
+  @override
+  String get hobbies => 'Хобби';
+
+  @override
+  String get activity_reading => 'чтение';
+
+  @override
+  String get activity_music => 'музыка';
+
+  @override
+  String get activity_drawing => 'рисование';
+
+  @override
+  String get activity_games => 'игры';
+
+  @override
+  String get work_or_study => 'Работа или учеба';
+
+  @override
+  String get activity_study => 'учеба';
+
+  @override
+  String get activity_work => 'работа';
+
+  @override
+  String get activity_deadline => 'дедлайн';
+
+  @override
+  String get activity_meeting => 'встреча';
+
+  @override
+  String get activity_junk_food => 'вредная пища';
+
+  @override
+  String get activity_alcohol => 'алкоголь';
+
+  @override
+  String get activity_smoking => 'курение';
+
+  @override
+  String get activity_doomscrolling => 'думскроллинг';
+
+  @override
+  String get social_activity => 'Социальная активность';
+
+  @override
+  String get activity_friends => 'друзья';
+
+  @override
+  String get activity_family => 'семья';
+
+  @override
+  String get activity_argument => 'спор';
+
+  @override
+  String get activity_awkward_situation => 'неловкая ситуация';
+
+  @override
+  String get activity_staying_at_home => 'остаться дома';
 }
