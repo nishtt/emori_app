@@ -138,5 +138,9 @@
   "activity_family": "семья",
   "activity_argument": "спор",
   "activity_awkward_situation": "неловкая ситуация",
-  "activity_staying_at_home": "остаться дома"
+  "activity_staying_at_home": "остаться дома",
+
+  "monthlyActivities": "Активности за месяц",
+  "usuallyWithMood": "Обычно с",
+  "noActivitiesForMood": "Нет активностей для выбранного настроения"
 }

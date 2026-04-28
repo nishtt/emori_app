@@ -416,4 +416,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get activity_staying_at_home => 'staying at home';
+
+  @override
+  String get monthlyActivities => 'Monthly activities';
+
+  @override
+  String get usuallyWithMood => 'Usually with';
+
+  @override
+  String get noActivitiesForMood => 'No activities for the selected mood';
 }

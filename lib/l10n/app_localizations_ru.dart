@@ -421,4 +421,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get activity_staying_at_home => 'остаться дома';
+
+  @override
+  String get monthlyActivities => 'Активности за месяц';
+
+  @override
+  String get usuallyWithMood => 'Обычно с';
+
+  @override
+  String get noActivitiesForMood => 'Нет активностей для выбранного настроения';
 }

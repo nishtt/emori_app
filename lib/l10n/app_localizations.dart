@@ -895,6 +895,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'staying at home'**
   String get activity_staying_at_home;
+
+  /// No description provided for @monthlyActivities.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly activities'**
+  String get monthlyActivities;
+
+  /// No description provided for @usuallyWithMood.
+  ///
+  /// In en, this message translates to:
+  /// **'Usually with'**
+  String get usuallyWithMood;
+
+  /// No description provided for @noActivitiesForMood.
+  ///
+  /// In en, this message translates to:
+  /// **'No activities for the selected mood'**
+  String get noActivitiesForMood;
 }
 
 class _AppLocalizationsDelegate

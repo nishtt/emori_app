@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mood_app/l10n/app_localizations.dart';
 import 'package:mood_app/services/mood_manager.dart';
 import 'package:mood_app/services/entry_service.dart';
+import 'package:mood_app/models/activity_item.dart';
 
 class InsightsPage extends StatefulWidget {
   const InsightsPage({super.key});
@@ -16,6 +17,7 @@ class InsightsPage extends StatefulWidget {
 class _InsightsPageState extends State<InsightsPage> {
   final EntryService _entryService = EntryService();
   DateTime _selectedMonth = DateTime.now();
+  String _selectedMoodForActivities = 'happy';
 
   Color _getMoodColor(String moodKey) {
   switch (moodKey) {
@@ -37,6 +39,42 @@ class _InsightsPageState extends State<InsightsPage> {
       _selectedMonth = DateTime(_selectedMonth.year, _selectedMonth.month + delta);
     });
   }
+
+  //подсчет активностей для всех записей месяца
+  Map<String, int> _countActivities(
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> docs,
+  ) {
+    final Map<String, int> counts = {};
+
+    for (final doc in docs) {
+      final data = doc.data();
+      final activities = List<String>.from(data['activities'] ?? []);
+
+      for (final activityKey in activities) {
+        counts[activityKey] = (counts[activityKey] ?? 0) + 1;
+      }
+    }
+
+    return counts;
+  }
+  //подсчет активностей для записей с определенным настроением
+  Map<String, int> _countActivitiesByMood(
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> docs,
+    String moodKey,
+  ) {
+    final filteredDocs = docs.where((doc) {
+      return doc.data()['moodKey'] == moodKey;
+    }).toList();
+
+    return _countActivities(filteredDocs);
+  }
+
+  List<MapEntry<String, int>> _sortActivityCounts(Map<String, int> counts) {
+    final entries = counts.entries.toList();
+    entries.sort((a, b) => b.value.compareTo(a.value));
+    return entries;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +104,7 @@ class _InsightsPageState extends State<InsightsPage> {
           ),
         ],
       ),
-      body: StreamBuilder<QuerySnapshot>(
+      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: _getMoodStream(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
@@ -82,6 +120,11 @@ class _InsightsPageState extends State<InsightsPage> {
               _buildLineChartCard(docs),
               const SizedBox(height: 20),
               _buildPieChartCard(docs),
+              const SizedBox(height: 20),
+              _buildActivitiesCounterCard(docs),
+              const SizedBox(height: 20),
+              _buildActivitiesByMoodCard(docs),
+              const SizedBox(height: 50),
             ],
           );
         },
@@ -95,7 +138,7 @@ class _InsightsPageState extends State<InsightsPage> {
   }
 
   // 1. количество записей за месяц и средний score
-  Widget _buildSummaryCard(List<QueryDocumentSnapshot> docs) {
+  Widget _buildSummaryCard(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
     double avgScore = docs.map((d) => (d.data() as Map)['score'] as int).reduce((a, b) => a + b) / docs.length;
     final l10n = AppLocalizations.of(context)!;
 
@@ -112,7 +155,7 @@ class _InsightsPageState extends State<InsightsPage> {
     );
   }
 // 2. линейный график изменения настроения + стабильность
-Widget _buildLineChartCard(List<QueryDocumentSnapshot> docs) {
+Widget _buildLineChartCard(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
   final int lastDay = DateTime(_selectedMonth.year, _selectedMonth.month + 1, 0).day;
   final l10n = AppLocalizations.of(context)!;
   
@@ -120,14 +163,14 @@ Widget _buildLineChartCard(List<QueryDocumentSnapshot> docs) {
   double totalChange = 0;
   
   for (int i = 0; i < docs.length; i++) {
-    final data = docs[i].data() as Map<String, dynamic>;
+    final data = docs[i].data();
     final date = (data['date'] as Timestamp).toDate();
     final score = (data['score'] as num).toDouble();
     
     spots.add(FlSpot(date.day.toDouble(), score));
 
     if (i > 0) {
-      final prevScore = (docs[i - 1].data() as Map<String, dynamic>)['score'] as num;
+      final prevScore = (docs[i - 1].data())['score'] as num;
       totalChange += (score - prevScore).abs();
     }
   }
@@ -248,54 +291,168 @@ Widget _buildLineChartCard(List<QueryDocumentSnapshot> docs) {
 }
 
   // 3. круговая диаграмма соотношения эмоций
-  Widget _buildPieChartCard(List<QueryDocumentSnapshot> docs) {
-  Map<String, int> counts = {};
-  for (var doc in docs) {
-    String key = (doc.data() as Map)['moodKey'];
-    counts[key] = (counts[key] ?? 0) + 1;
+  Widget _buildPieChartCard(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
+    Map<String, int> counts = {};
+    for (var doc in docs) {
+      String key = (doc.data() as Map)['moodKey'];
+      counts[key] = (counts[key] ?? 0) + 1;
+    }
+
+    List<PieChartSectionData> sections = counts.entries.map((entry) {
+      return PieChartSectionData(
+        color: _getMoodColor(entry.key),
+        value: entry.value.toDouble(),
+        title: '${((entry.value / docs.length) * 100).toStringAsFixed(0)}%',
+        radius: 50,
+        titleStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
+      );
+    }).toList();
+
+    return Container(
+      height: 250,
+      padding: const EdgeInsets.all(16),
+      decoration: _cardDecoration(),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 2,
+            child: PieChart(PieChartData(sections: sections, centerSpaceRadius: 40)),
+          ),
+          Expanded(
+            flex: 1,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: counts.entries.map((e) => Row(
+                children: [
+                  Container(width: 10, height: 10, color: _getMoodColor(e.key)),
+                  const SizedBox(width: 5),
+                  Text(
+                    MoodManager.getTranslation(context, e.key), 
+                    style: const TextStyle(fontSize: 12)
+                  ),
+                ],
+              )).toList(),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
-  List<PieChartSectionData> sections = counts.entries.map((entry) {
-    return PieChartSectionData(
-      color: _getMoodColor(entry.key),
-      value: entry.value.toDouble(),
-      title: '${((entry.value / docs.length) * 100).toStringAsFixed(0)}%',
-      radius: 50,
-      titleStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
-    );
-  }).toList();
+  //4. общий счетчик активностей
+  Widget _buildActivitiesCounterCard(
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> docs,
+  ) {
+    final counts = _sortActivityCounts(_countActivities(docs));
 
-  return Container(
-    height: 250,
-    padding: const EdgeInsets.all(16),
-    decoration: _cardDecoration(),
-    child: Row(
-      children: [
-        Expanded(
-          flex: 2,
-          child: PieChart(PieChartData(sections: sections, centerSpaceRadius: 40)),
-        ),
-        Expanded(
-          flex: 1,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: counts.entries.map((e) => Row(
-              children: [
-                Container(width: 10, height: 10, color: _getMoodColor(e.key)),
-                const SizedBox(width: 5),
-                Text(
-                  MoodManager.getTranslation(context, e.key), 
-                  style: const TextStyle(fontSize: 12)
-                ),
-              ],
-            )).toList(),
+    if (counts.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: _cardDecoration(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            AppLocalizations.of(context)!.monthlyActivities,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
           ),
-        ),
-      ],
-    ),
-  );
-}
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 12,
+            runSpacing: 14,
+            children: counts.map(_buildActivityStatItem).toList(),
+          )
+        ],
+      ),
+    );
+  }
+
+  //5. счетчик активностей для выбранного настроения
+  Widget _buildActivitiesByMoodCard(
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> docs,
+  ) {
+    final allActivities = _countActivities(docs);
+
+    if (allActivities.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final counts = _sortActivityCounts(
+      _countActivitiesByMood(docs, _selectedMoodForActivities),
+    );
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: _cardDecoration(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                AppLocalizations.of(context)!.usuallyWithMood,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.black, width: 1),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    value: _selectedMoodForActivities,
+                    isDense: true,
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    items: MoodManager.moodKeys.map((moodKey) {
+                      return DropdownMenuItem(
+                        value: moodKey,
+                        child: Text(
+                          MoodManager.getTranslation(context, moodKey),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      if (value == null) return;
+
+                      setState(() {
+                        _selectedMoodForActivities = value;
+                      });
+                    },
+                  ),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 16),
+          if (counts.isEmpty)
+            Text(
+              AppLocalizations.of(context)!.noActivitiesForMood,
+              style: const TextStyle(color: Colors.grey),
+            )
+          else
+            Wrap(
+              spacing: 12,
+              runSpacing: 14,
+              children: counts.map(_buildActivityStatItem).toList(),
+            )
+        ],
+      ),
+    );
+
+  }
+  
 
   // вспомогательные виджеты
   //карточки
@@ -322,4 +479,79 @@ Widget _buildLineChartCard(List<QueryDocumentSnapshot> docs) {
       ),
     );
   }
+  
+  Widget _buildActivityStatItem(MapEntry<String, int> entry) {
+  final activity = getActivityByKey(entry.key);
+
+  if (activity == null) {
+    return const SizedBox.shrink();
+  }
+
+  return SizedBox(
+    width: 70, // фиксированная ширина
+    child: Column(
+      children: [
+        Stack(
+          clipBehavior: Clip.none,
+          alignment: Alignment.center,
+          children: [
+            // КРУЖОК
+            Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.4),
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.black, width: 1),
+              ),
+              child: Icon(
+                activity.icon,
+                size: 26,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+
+            // ЦИФРА
+            Positioned(
+              right: -4,
+              top: -4,
+              child: Container(
+                width: 22,
+                height: 22,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 2),
+                ),
+                child: Text(
+                  entry.value.toString(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+
+        const SizedBox(height: 6),
+
+        // ПОДПИСЬ
+        Text(
+          getActivityLabel(context, entry.key),
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(
+            fontSize: 10.5,
+            height: 1.1,
+          ),
+        ),
+      ],
+    ),
+  );
+}
 }

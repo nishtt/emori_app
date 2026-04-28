@@ -138,6 +138,10 @@
   "activity_family": "family",
   "activity_argument": "argument",
   "activity_awkward_situation": "awkward situation",
-  "activity_staying_at_home": "staying at home"
+  "activity_staying_at_home": "staying at home",
+
+  "monthlyActivities": "Monthly activities",
+  "usuallyWithMood": "Usually with",
+  "noActivitiesForMood": "No activities for the selected mood"
 
 }
