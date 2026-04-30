@@ -8,6 +8,7 @@ import 'package:mood_app/services/entry_service.dart';
 import 'package:mood_app/models/mood_entry.dart';
 import 'package:mood_app/pages/activities_picker_page.dart';
 import 'package:mood_app/models/activity_item.dart';
+import 'package:mood_app/components/my_alert_dialog.dart';
 
 enum EntryMode {
   create,
@@ -106,8 +107,13 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
     }
   }
 
+  bool _isSaving = false;
+
   Future<void> _saveEntry() async {
+    if (_isSaving) return;
+    
     final l10n = AppLocalizations.of(context)!;
+    setState(() => _isSaving = true);
 
     try {
       final docId = _entryService.generateEntryId(widget.date);
@@ -128,9 +134,15 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${l10n.error}: $e')),
+        showMyDialog(
+          context: context,
+          title: l10n.error,
+          message: e.toString().replaceAll("Exception: ", ""),
         );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isSaving = false);
       }
     }
   }
@@ -159,7 +171,7 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
               size: 18,
               color: Theme.of(context).colorScheme.primary,
             ),
-            backgroundColor: Colors.white.withOpacity(0.6),
+            backgroundColor: Theme.of(context).colorScheme.secondary.withOpacity(0.5), 
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
               side: BorderSide(

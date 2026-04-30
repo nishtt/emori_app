@@ -10,11 +10,13 @@ import 'package:mood_app/models/activity_item.dart';
 class NoteCard extends StatelessWidget {
   final MoodEntry entry;
   final VoidCallback onTap;
+  final VoidCallback? onDelete;
 
   NoteCard({
     super.key,
     required this.entry,
     required this.onTap,
+    this.onDelete,
   });
 
   final EntryService _entryService = EntryService();
@@ -62,7 +64,7 @@ class NoteCard extends StatelessWidget {
               size: 18,
               color: Theme.of(context).colorScheme.primary,
             ),
-            backgroundColor: Colors.white.withOpacity(0.6),
+            backgroundColor: Theme.of(context).colorScheme.secondary.withOpacity(0.5), 
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
               side: BorderSide(

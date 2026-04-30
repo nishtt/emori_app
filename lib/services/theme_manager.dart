@@ -4,6 +4,10 @@ import '../themes/main_theme.dart';
 import '../themes/lavender_theme.dart';
 import '../themes/bloom_theme.dart';
 import '../themes/pink_theme.dart';
+import '../themes/turqoise_theme.dart';
+import '../themes/blue_theme.dart';
+import '../themes/green_theme.dart';
+import '../themes/peach_theme.dart';
 //модель для темы
 class ThemeOption {
   final String name;
@@ -17,9 +21,13 @@ class ThemeManager extends ChangeNotifier {
   // список всех доступных тем
   final List<ThemeOption> themeOptions = [
     ThemeOption(name: "Light Cream", themeData: mainTheme, previewColor: const Color(0xFFF2F2E9)),
-    ThemeOption(name: "Lavender", themeData: lavenderTheme, previewColor: const Color(0xFFD1C4E9)),
+    ThemeOption(name: "Lavender Field", themeData: lavenderTheme, previewColor: const Color(0xFFD1C4E9)),
     ThemeOption(name: "Bloom", themeData: bloomTheme, previewColor: const Color.fromARGB(255, 197, 93, 97)),
     ThemeOption(name: "Pink Dream", themeData: pinkTheme, previewColor: const Color.fromARGB(255, 230, 199, 202)),
+    ThemeOption(name: "Coral Shores", themeData: turqoiseTheme, previewColor: const Color.fromARGB(255, 248, 206, 166)),
+    ThemeOption(name: "Sky Whisper", themeData: blueTheme, previewColor: const Color.fromARGB(255, 230, 199, 202)),
+    ThemeOption(name: "Soft Moss", themeData: greenTheme, previewColor: const Color.fromARGB(255, 230, 199, 202)),
+    ThemeOption(name: "Peach Garden", themeData: peachTheme, previewColor: const Color.fromARGB(255, 230, 199, 202)),
   ];
 
   ThemeData _themeData = mainTheme;

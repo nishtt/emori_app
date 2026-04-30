@@ -78,14 +78,16 @@ class _NotesPageState extends State<NotesPage> {
         ),
         centerTitle: true,
       ),
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 250),
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: MonthEntriesList(
-            key: ValueKey(_currentMonth.toString()), 
-            month: _currentMonth,
-            targetDay: _shouldScrollToDay ? widget.initialDate.day : null,
+      body: SafeArea(
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 250),
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: MonthEntriesList(
+              key: ValueKey(_currentMonth.toString()), 
+              month: _currentMonth,
+              targetDay: _shouldScrollToDay ? widget.initialDate.day : null,
+            ),
           ),
         ),
       ),
@@ -121,15 +123,41 @@ class _MonthEntriesListState extends State<MonthEntriesList> {
     return StreamBuilder<QuerySnapshot>(
       stream: _entryService.watchEntriesForMonth(widget.month),
       builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.error_outline, size: 48, color: Colors.red),
+                const SizedBox(height: 16),
+                Text(
+                  'Ошибка загрузки записей',
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  snapshot.error.toString(),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),
+          );
+        }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator(color: Colors.black));
+          return const Center(
+            child: CircularProgressIndicator(color: Colors.black),
+          );
         }
 
         final docs = snapshot.data?.docs ?? [];
 
         if (docs.isEmpty) {
-          return  Center(
-            child: Text(l10n.noEntries, style: TextStyle(color: Colors.grey)),
+          return Center(
+            child: Text(
+              AppLocalizations.of(context)!.noEntries,
+              style: const TextStyle(color: Colors.grey, fontSize: 16),
+            ),
           );
         }
 
@@ -172,6 +200,7 @@ class _MonthEntriesListState extends State<MonthEntriesList> {
                   ),
                 );
               },
+              onDelete: () => setState(() {}),
             );
           },
         );

@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mood_app/pages/notes_page.dart';
 import 'package:mood_app/components/calendar_day_tile.dart';
 import 'emote_picker_page.dart';
@@ -24,11 +22,6 @@ class _HomePageState extends State<HomePage> {
   late int _totalMonths;
   late String _currentMonthLabel;
 
-  StreamSubscription<QuerySnapshot>? _moodSubscription;
-
-  // данные настроений: {'2025-07-07': 'happy'}
-  Map<String, String> _moodData = {};
-
   @override
   void initState() {
     super.initState();
@@ -39,47 +32,16 @@ class _HomePageState extends State<HomePage> {
         1;
 
     _pageController = PageController(initialPage: _totalMonths - 1);
-
-    _pageController.addListener(() {
-      int next = _pageController.page!.round();
-      DateTime date = DateTime(_startDate.year, _startDate.month + next);
-      String newLabel = DateFormat(
-        'LLLL yyyy',
-        Localizations.localeOf(context).toString(),
-      ).format(date);
-
-      if (_currentMonthLabel != newLabel) {
-        setState(() => _currentMonthLabel = newLabel);
-      }
-    });
-
-    _listenToMoods();
   }
 
-  //смена языка
+  // обновляем название месяца при смене языка
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
     final localeCode = Localizations.localeOf(context).languageCode;
 
-    setState(() {
-      _currentMonthLabel = DateFormat('LLLL yyyy', localeCode).format(_today);
-    });
-  }
-  //прослушка изменений в коллекции настроений пользователя
-  void _listenToMoods() {
-    _moodSubscription = _entryService.watchAllEntries().listen((snapshot) {
-      final Map<String, String> fetchedMoods = {};
-
-      for (var doc in snapshot.docs) {
-        fetchedMoods[doc.id] = doc.data()['moodKey'] ?? 'neutral';
-      }
-
-      if (mounted) {
-        setState(() => _moodData = fetchedMoods);
-      }
-    });
+    _currentMonthLabel = DateFormat('LLLL yyyy', localeCode).format(_today);
   }
 
   @override
@@ -102,22 +64,50 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
+
+      // PageView строит календарь по месяцам
       body: PageView.builder(
         controller: _pageController,
         scrollDirection: Axis.vertical,
         itemCount: _totalMonths,
+        onPageChanged: _onPageChanged,
         itemBuilder: (context, index) {
-          DateTime monthDate = DateTime(
+          final monthDate = DateTime(
             _startDate.year,
             _startDate.month + index,
           );
 
-          return _buildMonthGrid(monthDate);
+          // данные загружаются только для отображаемого месяца
+          return StreamBuilder(
+            stream: _entryService.watchEntriesForMonth(monthDate),
+            builder: (context, snapshot) {
+              final moodData = <String, String>{};
+
+              if (snapshot.hasData) {
+                for (final doc in snapshot.data!.docs) {
+                  moodData[doc.id] = doc.data()['moodKey'] ?? 'neutral';
+                }
+              }
+
+              return _buildMonthGrid(monthDate, moodData);
+            },
+          );
         },
       ),
     );
   }
-  //сетка дней недели
+
+  // обновление заголовка при перелистывании месяцев
+  void _onPageChanged(int index) {
+    final localeCode = Localizations.localeOf(context).languageCode;
+    final date = DateTime(_startDate.year, _startDate.month + index);
+
+    setState(() {
+      _currentMonthLabel = DateFormat('LLLL yyyy', localeCode).format(date);
+    });
+  }
+
+  // сетка дней недели
   Widget _buildWeekDaysHeader() {
     final l10n = AppLocalizations.of(context)!;
 
@@ -152,18 +142,12 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-  
-  //календарная сетка
-  Widget _buildMonthGrid(DateTime monthDate) {
-    int daysInMonth = DateTime(monthDate.year, monthDate.month + 1, 0).day;
 
-    int firstWeekday = DateTime(
-      monthDate.year,
-      monthDate.month,
-      1,
-    ).weekday;
-
-    int offset = firstWeekday - 1;
+  // календарная сетка месяца
+  Widget _buildMonthGrid(DateTime monthDate, Map<String, String> moodData) {
+    final daysInMonth = DateTime(monthDate.year, monthDate.month + 1, 0).day;
+    final firstWeekday = DateTime(monthDate.year, monthDate.month, 1).weekday;
+    final offset = firstWeekday - 1;
 
     return GridView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -177,36 +161,36 @@ class _HomePageState extends State<HomePage> {
       itemBuilder: (context, index) {
         if (index < offset) return const SizedBox();
 
-        int day = index - offset + 1;
+        final day = index - offset + 1;
 
-        DateTime currentDate = DateTime(
+        final currentDate = DateTime(
           monthDate.year,
           monthDate.month,
           day,
         );
 
-        String dateKey = DateFormat('yyyy-MM-dd').format(currentDate);
+        final dateKey = DateFormat('yyyy-MM-dd').format(currentDate);
 
-        bool isFuture = currentDate.isAfter(_today);
-        bool isToday = _isSameDay(currentDate, _today);
-        String? moodKey = _moodData[dateKey];
+        final isFuture = currentDate.isAfter(_today);
+        final isToday = _isSameDay(currentDate, _today);
+        final moodKey = moodData[dateKey];
 
         return CalendarDayTile(
           day: day,
           isToday: isToday,
           isFuture: isFuture,
           moodKey: moodKey,
-          onTap: () => _onDayTap(currentDate),
+          onTap: () => _onDayTap(currentDate, moodData),
         );
       },
     );
   }
 
-  //нажатие на день
-  void _onDayTap(DateTime date) {
-    String dateKey = DateFormat('yyyy-MM-dd').format(date);
-    //есть запись - к странице всех записей, нет - к выбору эмодзи
-    if (_moodData.containsKey(dateKey)) {
+  // переход либо к существующей записи, либо к созданию новой
+  void _onDayTap(DateTime date, Map<String, String> moodData) {
+    final dateKey = DateFormat('yyyy-MM-dd').format(date);
+
+    if (moodData.containsKey(dateKey)) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -229,7 +213,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    _moodSubscription?.cancel();
     _pageController.dispose();
     super.dispose();
   }

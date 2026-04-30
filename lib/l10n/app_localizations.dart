@@ -668,6 +668,168 @@ abstract class AppLocalizations {
   /// **'Bad days are part of a good life, too.'**
   String get quote17;
 
+  /// No description provided for @quote18.
+  ///
+  /// In en, this message translates to:
+  /// **'I haven\'t met all of me yet.'**
+  String get quote18;
+
+  /// No description provided for @quote19.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have to be good at something to enjoy it.'**
+  String get quote19;
+
+  /// No description provided for @quote20.
+  ///
+  /// In en, this message translates to:
+  /// **'As long as you\'re learning, you\'re not failing.'**
+  String get quote20;
+
+  /// No description provided for @quote21.
+  ///
+  /// In en, this message translates to:
+  /// **'Doing it scared is still brave.'**
+  String get quote21;
+
+  /// No description provided for @quote22.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest isn\'t a reward. It\'s part of your progress.'**
+  String get quote22;
+
+  /// No description provided for @quote23.
+  ///
+  /// In en, this message translates to:
+  /// **'Sometimes instead of trying harder, you need to be a little gentler with yourself.'**
+  String get quote23;
+
+  /// No description provided for @quote24.
+  ///
+  /// In en, this message translates to:
+  /// **'We are not \'born to die\'. Does a book begin just to end? Does a song start with a beautiful chord only to finish? Yes, we are born knowing death is inevitable, but that is only the final act. We are born to love, to feel joy, to move, to learn, to cry, and to feel. We are born to live.'**
+  String get quote24;
+
+  /// No description provided for @quote25.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t climb a mountain for the world to see you. Climb it so you can see the world.'**
+  String get quote25;
+
+  /// No description provided for @quote26.
+  ///
+  /// In en, this message translates to:
+  /// **'Life isn\'t about finding yourself. It\'s about creating yourself.'**
+  String get quote26;
+
+  /// No description provided for @quote27.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s not wrong to look at yourself with kindness. Your life was never meant to be a punishment.'**
+  String get quote27;
+
+  /// No description provided for @quote28.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s okay if the only thing you did today was survive.'**
+  String get quote28;
+
+  /// No description provided for @quote29.
+  ///
+  /// In en, this message translates to:
+  /// **'You worry too much for someone who always figures it out.'**
+  String get quote29;
+
+  /// No description provided for @quote30.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot use someone else\'s map to find yourself.'**
+  String get quote30;
+
+  /// No description provided for @quote31.
+  ///
+  /// In en, this message translates to:
+  /// **'Not all journeys need a map. Some just need company.'**
+  String get quote31;
+
+  /// No description provided for @quote32.
+  ///
+  /// In en, this message translates to:
+  /// **'If I try, I might fail. But if I don\'t try, I\'ll never succeed.'**
+  String get quote32;
+
+  /// No description provided for @quote33.
+  ///
+  /// In en, this message translates to:
+  /// **'Your past is a place to learn from, not to live in.'**
+  String get quote33;
+
+  /// No description provided for @quote34.
+  ///
+  /// In en, this message translates to:
+  /// **'Never be a prisoner of your past. It was a lesson, not a life sentence.'**
+  String get quote34;
+
+  /// No description provided for @quote35.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember, you\'ve survived every \'I can\'t do this\' so far.'**
+  String get quote35;
+
+  /// No description provided for @quote36.
+  ///
+  /// In en, this message translates to:
+  /// **'Sometimes you think you want to disappear, but what you really want is to be found.'**
+  String get quote36;
+
+  /// No description provided for @quote37.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything is a win when your goal is to experience.'**
+  String get quote37;
+
+  /// No description provided for @quote38.
+  ///
+  /// In en, this message translates to:
+  /// **'If you see beauty in something, don\'t wait for others to agree.'**
+  String get quote38;
+
+  /// No description provided for @quote39.
+  ///
+  /// In en, this message translates to:
+  /// **'How silly of me to forget how far I\'ve come just because I still have far to go.'**
+  String get quote39;
+
+  /// No description provided for @quote40.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have to believe everything you think.'**
+  String get quote40;
+
+  /// No description provided for @quote41.
+  ///
+  /// In en, this message translates to:
+  /// **'No amount of regret can change the past. No amount of anxiety can change the future.'**
+  String get quote41;
+
+  /// No description provided for @quote42.
+  ///
+  /// In en, this message translates to:
+  /// **'The wind is strong, but so are you.'**
+  String get quote42;
+
+  /// No description provided for @quote43.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything that is real was imagined first.'**
+  String get quote43;
+
+  /// No description provided for @quote44.
+  ///
+  /// In en, this message translates to:
+  /// **'Life finds a way, and so will I.'**
+  String get quote44;
+
   /// No description provided for @activities.
   ///
   /// In en, this message translates to:
@@ -692,6 +854,12 @@ abstract class AppLocalizations {
   /// **'sport'**
   String get activity_sport;
 
+  /// No description provided for @activity_yoga.
+  ///
+  /// In en, this message translates to:
+  /// **'yoga'**
+  String get activity_yoga;
+
   /// No description provided for @activity_water.
   ///
   /// In en, this message translates to:
@@ -710,12 +878,6 @@ abstract class AppLocalizations {
   /// **'healthy food'**
   String get activity_healthy_food;
 
-  /// No description provided for @sleep.
-  ///
-  /// In en, this message translates to:
-  /// **'Sleep'**
-  String get sleep;
-
   /// No description provided for @activity_good_sleep.
   ///
   /// In en, this message translates to:
@@ -728,17 +890,77 @@ abstract class AppLocalizations {
   /// **'bad sleep'**
   String get activity_bad_sleep;
 
+  /// No description provided for @activity_malaise.
+  ///
+  /// In en, this message translates to:
+  /// **'malaise'**
+  String get activity_malaise;
+
   /// No description provided for @activity_early_wake.
   ///
   /// In en, this message translates to:
   /// **'early wake'**
   String get activity_early_wake;
 
-  /// No description provided for @activity_nap.
+  /// No description provided for @bad_habits.
   ///
   /// In en, this message translates to:
-  /// **'nap'**
-  String get activity_nap;
+  /// **'Bad habits'**
+  String get bad_habits;
+
+  /// No description provided for @activity_junk_food.
+  ///
+  /// In en, this message translates to:
+  /// **'junk food'**
+  String get activity_junk_food;
+
+  /// No description provided for @activity_alcohol.
+  ///
+  /// In en, this message translates to:
+  /// **'alcohol'**
+  String get activity_alcohol;
+
+  /// No description provided for @activity_smoking.
+  ///
+  /// In en, this message translates to:
+  /// **'smoking'**
+  String get activity_smoking;
+
+  /// No description provided for @activity_doomscrolling.
+  ///
+  /// In en, this message translates to:
+  /// **'doomscrolling'**
+  String get activity_doomscrolling;
+
+  /// No description provided for @activity_caffeine.
+  ///
+  /// In en, this message translates to:
+  /// **'caffeine'**
+  String get activity_caffeine;
+
+  /// No description provided for @activity_sugar.
+  ///
+  /// In en, this message translates to:
+  /// **'sugar'**
+  String get activity_sugar;
+
+  /// No description provided for @activity_skipped_meal.
+  ///
+  /// In en, this message translates to:
+  /// **'skipped meal'**
+  String get activity_skipped_meal;
+
+  /// No description provided for @activity_staying_up_late.
+  ///
+  /// In en, this message translates to:
+  /// **'staying up late'**
+  String get activity_staying_up_late;
+
+  /// No description provided for @activity_water_shortage.
+  ///
+  /// In en, this message translates to:
+  /// **'water shortage'**
+  String get activity_water_shortage;
 
   /// No description provided for @weather.
   ///
@@ -776,6 +998,30 @@ abstract class AppLocalizations {
   /// **'windy'**
   String get activity_windy;
 
+  /// No description provided for @activity_hot.
+  ///
+  /// In en, this message translates to:
+  /// **'hot'**
+  String get activity_hot;
+
+  /// No description provided for @activity_cold.
+  ///
+  /// In en, this message translates to:
+  /// **'cold'**
+  String get activity_cold;
+
+  /// No description provided for @activity_thunder.
+  ///
+  /// In en, this message translates to:
+  /// **'thunder'**
+  String get activity_thunder;
+
+  /// No description provided for @activity_pressure.
+  ///
+  /// In en, this message translates to:
+  /// **'pressure'**
+  String get activity_pressure;
+
   /// No description provided for @hobbies.
   ///
   /// In en, this message translates to:
@@ -805,6 +1051,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'games'**
   String get activity_games;
+
+  /// No description provided for @activity_cooking.
+  ///
+  /// In en, this message translates to:
+  /// **'cooking'**
+  String get activity_cooking;
+
+  /// No description provided for @activity_gardening.
+  ///
+  /// In en, this message translates to:
+  /// **'gardening'**
+  String get activity_gardening;
+
+  /// No description provided for @activity_cinema.
+  ///
+  /// In en, this message translates to:
+  /// **'films'**
+  String get activity_cinema;
 
   /// No description provided for @work_or_study.
   ///
@@ -836,29 +1100,35 @@ abstract class AppLocalizations {
   /// **'meeting'**
   String get activity_meeting;
 
-  /// No description provided for @activity_junk_food.
+  /// No description provided for @activity_overwork.
   ///
   /// In en, this message translates to:
-  /// **'junk food'**
-  String get activity_junk_food;
+  /// **'overwork'**
+  String get activity_overwork;
 
-  /// No description provided for @activity_alcohol.
+  /// No description provided for @activity_creative_block.
   ///
   /// In en, this message translates to:
-  /// **'alcohol'**
-  String get activity_alcohol;
+  /// **'creative block'**
+  String get activity_creative_block;
 
-  /// No description provided for @activity_smoking.
+  /// No description provided for @activity_procrastination.
   ///
   /// In en, this message translates to:
-  /// **'smoking'**
-  String get activity_smoking;
+  /// **'procrastination'**
+  String get activity_procrastination;
 
-  /// No description provided for @activity_doomscrolling.
+  /// No description provided for @activity_late.
   ///
   /// In en, this message translates to:
-  /// **'doomscrolling'**
-  String get activity_doomscrolling;
+  /// **'late'**
+  String get activity_late;
+
+  /// No description provided for @activity_presentation.
+  ///
+  /// In en, this message translates to:
+  /// **'presentation'**
+  String get activity_presentation;
 
   /// No description provided for @social_activity.
   ///
@@ -878,6 +1148,24 @@ abstract class AppLocalizations {
   /// **'family'**
   String get activity_family;
 
+  /// No description provided for @activity_pet.
+  ///
+  /// In en, this message translates to:
+  /// **'pet'**
+  String get activity_pet;
+
+  /// No description provided for @activity_party.
+  ///
+  /// In en, this message translates to:
+  /// **'party'**
+  String get activity_party;
+
+  /// No description provided for @activity_date.
+  ///
+  /// In en, this message translates to:
+  /// **'date'**
+  String get activity_date;
+
   /// No description provided for @activity_argument.
   ///
   /// In en, this message translates to:
@@ -895,6 +1183,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'staying at home'**
   String get activity_staying_at_home;
+
+  /// No description provided for @self_care.
+  ///
+  /// In en, this message translates to:
+  /// **'Self care'**
+  String get self_care;
+
+  /// No description provided for @activity_shopping.
+  ///
+  /// In en, this message translates to:
+  /// **'shopping'**
+  String get activity_shopping;
+
+  /// No description provided for @activity_beauty.
+  ///
+  /// In en, this message translates to:
+  /// **'beauty'**
+  String get activity_beauty;
+
+  /// No description provided for @activity_meditation.
+  ///
+  /// In en, this message translates to:
+  /// **'meditation'**
+  String get activity_meditation;
+
+  /// No description provided for @activity_shower.
+  ///
+  /// In en, this message translates to:
+  /// **'shower'**
+  String get activity_shower;
+
+  /// No description provided for @routine.
+  ///
+  /// In en, this message translates to:
+  /// **'Routine'**
+  String get routine;
+
+  /// No description provided for @activity_cleaning.
+  ///
+  /// In en, this message translates to:
+  /// **'cleaning'**
+  String get activity_cleaning;
+
+  /// No description provided for @activity_washing.
+  ///
+  /// In en, this message translates to:
+  /// **'washing'**
+  String get activity_washing;
+
+  /// No description provided for @activity_driving.
+  ///
+  /// In en, this message translates to:
+  /// **'driving'**
+  String get activity_driving;
 
   /// No description provided for @monthlyActivities.
   ///

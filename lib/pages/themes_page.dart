@@ -21,62 +21,64 @@ class ThemesPage extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: themeManager.themeOptions.length,
-        itemBuilder: (context, index) {
-          final option = themeManager.themeOptions[index];
-          // проверяем выбрана ли эта тема сейчас
-          bool isSelected = themeManager.themeData == option.themeData;
-
-          return GestureDetector(
-            onTap: () => themeManager.setTheme(index),
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 15),
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: isSelected 
-                    ? Theme.of(context).colorScheme.primary.withOpacity(0.1) 
-                    : Theme.of(context).colorScheme.secondary.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: isSelected ? Theme.of(context).colorScheme.primary : Colors.black,
-                  width: isSelected ? 2 : 0.8,
+      body: SafeArea(
+        child: ListView.builder(
+          padding: const EdgeInsets.all(16),
+          itemCount: themeManager.themeOptions.length,
+          itemBuilder: (context, index) {
+            final option = themeManager.themeOptions[index];
+            // проверяем выбрана ли эта тема сейчас
+            bool isSelected = themeManager.themeData == option.themeData;
+        
+            return GestureDetector(
+              onTap: () => themeManager.setTheme(index),
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: isSelected 
+                      ? Theme.of(context).colorScheme.primary.withOpacity(0.1) 
+                      : Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: isSelected ? Theme.of(context).colorScheme.primary : Colors.black,
+                    width: isSelected ? 2 : 0.8,
+                  ),
                 ),
-              ),
-              child: Row(
-                children: [
-
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.black26, width: 1),
-                      gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          option.themeData.colorScheme.surface, 
-                          option.themeData.colorScheme.primary,  
-                        ],
-                        stops: const [0.5, 0.5], 
+                child: Row(
+                  children: [
+        
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.black26, width: 1),
+                        gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [
+                            option.themeData.colorScheme.surface, 
+                            option.themeData.colorScheme.primary,  
+                          ],
+                          stops: const [0.5, 0.5], 
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 20),
-                  Text(
-                    option.name,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const Spacer(),
-                  if (isSelected) 
-                    Icon(Icons.check_circle, color: Theme.of(context).colorScheme.primary),
-                ],
+                    const SizedBox(width: 20),
+                    Text(
+                      option.name,
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const Spacer(),
+                    if (isSelected) 
+                      Icon(Icons.check_circle, color: Theme.of(context).colorScheme.primary),
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

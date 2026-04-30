@@ -29,7 +29,7 @@ class _WelcomePageState extends State<WelcomePage> {
     final random = Random();
     
     // Выбираем случайный индекс для цитаты
-    _quoteIndex = random.nextInt(17); 
+    _quoteIndex = random.nextInt(44); 
     
     _randomAnim = _animations[random.nextInt(_animations.length)];
 
@@ -60,6 +60,33 @@ class _WelcomePageState extends State<WelcomePage> {
       case 14: return l10n.quote15;
       case 15: return l10n.quote16;
       case 16: return l10n.quote17;
+      case 17: return l10n.quote18;
+      case 18: return l10n.quote19;
+      case 19: return l10n.quote20;
+      case 20: return l10n.quote21;
+      case 21: return l10n.quote22;
+      case 22: return l10n.quote23;
+      case 23: return l10n.quote24;
+      case 24: return l10n.quote25;
+      case 25: return l10n.quote26;
+      case 26: return l10n.quote27;
+      case 27: return l10n.quote28;
+      case 28: return l10n.quote29;
+      case 29: return l10n.quote30;
+      case 30: return l10n.quote31;
+      case 31: return l10n.quote32;
+      case 32: return l10n.quote33;
+      case 33: return l10n.quote34;
+      case 34: return l10n.quote35;
+      case 35: return l10n.quote36;
+      case 36: return l10n.quote37;
+      case 37: return l10n.quote38;
+      case 38: return l10n.quote39;
+      case 39: return l10n.quote40;
+      case 40: return l10n.quote41;
+      case 41: return l10n.quote42;
+      case 42: return l10n.quote43;
+      case 43: return l10n.quote44;
       default: return l10n.quote1;
     }
   }
@@ -85,7 +112,7 @@ class _WelcomePageState extends State<WelcomePage> {
               child: TextButton(
                 onPressed: widget.onFinish,
                 child: Text(
-                  l10n.skip, // Локализованный текст "Пропустить"
+                  l10n.skip, 
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -109,7 +136,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   ),
                   const SizedBox(height: 40),
                   Text(
-                    _getTranslatedQuote(l10n), // Вывод переведенной цитаты
+                    _getTranslatedQuote(l10n), 
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 18,

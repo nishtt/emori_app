@@ -304,6 +304,101 @@ class AppLocalizationsEn extends AppLocalizations {
   String get quote17 => 'Bad days are part of a good life, too.';
 
   @override
+  String get quote18 => 'I haven\'t met all of me yet.';
+
+  @override
+  String get quote19 => 'You don\'t have to be good at something to enjoy it.';
+
+  @override
+  String get quote20 => 'As long as you\'re learning, you\'re not failing.';
+
+  @override
+  String get quote21 => 'Doing it scared is still brave.';
+
+  @override
+  String get quote22 => 'Rest isn\'t a reward. It\'s part of your progress.';
+
+  @override
+  String get quote23 =>
+      'Sometimes instead of trying harder, you need to be a little gentler with yourself.';
+
+  @override
+  String get quote24 =>
+      'We are not \'born to die\'. Does a book begin just to end? Does a song start with a beautiful chord only to finish? Yes, we are born knowing death is inevitable, but that is only the final act. We are born to love, to feel joy, to move, to learn, to cry, and to feel. We are born to live.';
+
+  @override
+  String get quote25 =>
+      'Don\'t climb a mountain for the world to see you. Climb it so you can see the world.';
+
+  @override
+  String get quote26 =>
+      'Life isn\'t about finding yourself. It\'s about creating yourself.';
+
+  @override
+  String get quote27 =>
+      'It\'s not wrong to look at yourself with kindness. Your life was never meant to be a punishment.';
+
+  @override
+  String get quote28 =>
+      'It\'s okay if the only thing you did today was survive.';
+
+  @override
+  String get quote29 =>
+      'You worry too much for someone who always figures it out.';
+
+  @override
+  String get quote30 => 'You cannot use someone else\'s map to find yourself.';
+
+  @override
+  String get quote31 => 'Not all journeys need a map. Some just need company.';
+
+  @override
+  String get quote32 =>
+      'If I try, I might fail. But if I don\'t try, I\'ll never succeed.';
+
+  @override
+  String get quote33 => 'Your past is a place to learn from, not to live in.';
+
+  @override
+  String get quote34 =>
+      'Never be a prisoner of your past. It was a lesson, not a life sentence.';
+
+  @override
+  String get quote35 =>
+      'Remember, you\'ve survived every \'I can\'t do this\' so far.';
+
+  @override
+  String get quote36 =>
+      'Sometimes you think you want to disappear, but what you really want is to be found.';
+
+  @override
+  String get quote37 => 'Everything is a win when your goal is to experience.';
+
+  @override
+  String get quote38 =>
+      'If you see beauty in something, don\'t wait for others to agree.';
+
+  @override
+  String get quote39 =>
+      'How silly of me to forget how far I\'ve come just because I still have far to go.';
+
+  @override
+  String get quote40 => 'You don\'t have to believe everything you think.';
+
+  @override
+  String get quote41 =>
+      'No amount of regret can change the past. No amount of anxiety can change the future.';
+
+  @override
+  String get quote42 => 'The wind is strong, but so are you.';
+
+  @override
+  String get quote43 => 'Everything that is real was imagined first.';
+
+  @override
+  String get quote44 => 'Life finds a way, and so will I.';
+
+  @override
   String get activities => 'Activities';
 
   @override
@@ -316,6 +411,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get activity_sport => 'sport';
 
   @override
+  String get activity_yoga => 'yoga';
+
+  @override
   String get activity_water => 'water';
 
   @override
@@ -325,19 +423,46 @@ class AppLocalizationsEn extends AppLocalizations {
   String get activity_healthy_food => 'healthy food';
 
   @override
-  String get sleep => 'Sleep';
-
-  @override
   String get activity_good_sleep => 'good sleep';
 
   @override
   String get activity_bad_sleep => 'bad sleep';
 
   @override
+  String get activity_malaise => 'malaise';
+
+  @override
   String get activity_early_wake => 'early wake';
 
   @override
-  String get activity_nap => 'nap';
+  String get bad_habits => 'Bad habits';
+
+  @override
+  String get activity_junk_food => 'junk food';
+
+  @override
+  String get activity_alcohol => 'alcohol';
+
+  @override
+  String get activity_smoking => 'smoking';
+
+  @override
+  String get activity_doomscrolling => 'doomscrolling';
+
+  @override
+  String get activity_caffeine => 'caffeine';
+
+  @override
+  String get activity_sugar => 'sugar';
+
+  @override
+  String get activity_skipped_meal => 'skipped meal';
+
+  @override
+  String get activity_staying_up_late => 'staying up late';
+
+  @override
+  String get activity_water_shortage => 'water shortage';
 
   @override
   String get weather => 'Weather';
@@ -358,6 +483,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get activity_windy => 'windy';
 
   @override
+  String get activity_hot => 'hot';
+
+  @override
+  String get activity_cold => 'cold';
+
+  @override
+  String get activity_thunder => 'thunder';
+
+  @override
+  String get activity_pressure => 'pressure';
+
+  @override
   String get hobbies => 'Hobbies';
 
   @override
@@ -371,6 +508,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get activity_games => 'games';
+
+  @override
+  String get activity_cooking => 'cooking';
+
+  @override
+  String get activity_gardening => 'gardening';
+
+  @override
+  String get activity_cinema => 'films';
 
   @override
   String get work_or_study => 'Work or Study';
@@ -388,16 +534,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get activity_meeting => 'meeting';
 
   @override
-  String get activity_junk_food => 'junk food';
+  String get activity_overwork => 'overwork';
 
   @override
-  String get activity_alcohol => 'alcohol';
+  String get activity_creative_block => 'creative block';
 
   @override
-  String get activity_smoking => 'smoking';
+  String get activity_procrastination => 'procrastination';
 
   @override
-  String get activity_doomscrolling => 'doomscrolling';
+  String get activity_late => 'late';
+
+  @override
+  String get activity_presentation => 'presentation';
 
   @override
   String get social_activity => 'Social activity';
@@ -409,6 +558,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get activity_family => 'family';
 
   @override
+  String get activity_pet => 'pet';
+
+  @override
+  String get activity_party => 'party';
+
+  @override
+  String get activity_date => 'date';
+
+  @override
   String get activity_argument => 'argument';
 
   @override
@@ -416,6 +574,33 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get activity_staying_at_home => 'staying at home';
+
+  @override
+  String get self_care => 'Self care';
+
+  @override
+  String get activity_shopping => 'shopping';
+
+  @override
+  String get activity_beauty => 'beauty';
+
+  @override
+  String get activity_meditation => 'meditation';
+
+  @override
+  String get activity_shower => 'shower';
+
+  @override
+  String get routine => 'Routine';
+
+  @override
+  String get activity_cleaning => 'cleaning';
+
+  @override
+  String get activity_washing => 'washing';
+
+  @override
+  String get activity_driving => 'driving';
 
   @override
   String get monthlyActivities => 'Monthly activities';

@@ -309,6 +309,106 @@ class AppLocalizationsRu extends AppLocalizations {
   String get quote17 => 'Плохие дни тоже часть хорошей жизни.';
 
   @override
+  String get quote18 => 'Я ещё не познакомился со всеми гранями себя.';
+
+  @override
+  String get quote19 =>
+      'Необязательно быть мастером в чём-то, чтобы получать от этого удовольствие.';
+
+  @override
+  String get quote20 => 'Пока ты учишься — ты не проигрываешь.';
+
+  @override
+  String get quote21 =>
+      'Делать что-то, несмотря на страх, — это и есть смелость.';
+
+  @override
+  String get quote22 => 'Отдых — это не награда. Это часть твоего прогресса.';
+
+  @override
+  String get quote23 =>
+      'Иногда вместо того чтобы стараться сильнее, нужно стать к себе чуточку бережнее.';
+
+  @override
+  String get quote24 =>
+      'Мы рождены не для того, чтобы умереть. Разве книга начинается только ради финала? Разве песня звучит только ради последнего аккорда? Да, мы рождаемся со знанием о неизбежности смерти, но это лишь последний акт. Мы рождены, чтобы любить, радоваться, двигаться, учиться, плакать и чувствовать. Мы рождены, чтобы жить.';
+
+  @override
+  String get quote25 =>
+      'Не взбирайся на гору, чтобы мир увидел тебя. Взбирайся, чтобы ты увидел мир.';
+
+  @override
+  String get quote26 =>
+      'Смысл жизни не в том, чтобы найти себя, а в том, чтобы себя создать.';
+
+  @override
+  String get quote27 =>
+      'Смотреть на себя с добротой — это нормально. Твоя жизнь никогда не должна была стать наказанием.';
+
+  @override
+  String get quote28 =>
+      'Это нормально, если всё, что ты сделал сегодня, — это просто выжил.';
+
+  @override
+  String get quote29 =>
+      'Ты слишком много беспокоишься для человека, который всегда находит выход.';
+
+  @override
+  String get quote30 => 'Ты не сможешь найти себя, пользуясь чужой картой.';
+
+  @override
+  String get quote31 =>
+      'Не всякому пути нужна карта. Некоторым нужна лишь компания.';
+
+  @override
+  String get quote32 =>
+      'Если я попробую, я могу провалиться. Но если я не попробую, я никогда не преуспею.';
+
+  @override
+  String get quote33 =>
+      'Твоё прошлое — это место для извлечения уроков, а не для жизни в нём.';
+
+  @override
+  String get quote34 =>
+      'Никогда не будь пленником своего прошлого. Это был урок, а не пожизненный приговор.';
+
+  @override
+  String get quote35 =>
+      'Помни: до сих пор ты пережил каждое своё «я больше не смогу».';
+
+  @override
+  String get quote36 =>
+      'Иногда кажется, что хочется исчезнуть, но на самом деле все, что ты хочешь — это чтобы тебя нашли.';
+
+  @override
+  String get quote37 =>
+      'Всё можно считать победой, когда твоя цель — просто получить опыт.';
+
+  @override
+  String get quote38 =>
+      'Если ты видишь в чём-то красоту, не жди, пока другие с тобой согласятся.';
+
+  @override
+  String get quote39 =>
+      'Как глупо с моей стороны забывать о том, какой путь я уже проделал, только потому, что впереди ещё долгая дорога.';
+
+  @override
+  String get quote40 => 'Ты не обязан верить всему, что думаешь.';
+
+  @override
+  String get quote41 =>
+      'Никакое сожаление не изменит прошлого. Никакая тревога не изменит будущего.';
+
+  @override
+  String get quote42 => 'Ветер силён, но ты тоже.';
+
+  @override
+  String get quote43 => 'Всё реальное когда-то было лишь мечтой.';
+
+  @override
+  String get quote44 => 'Жизнь всегда находит выход, и я тоже найду.';
+
+  @override
   String get activities => 'Деятельность';
 
   @override
@@ -321,16 +421,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get activity_sport => 'спорт';
 
   @override
+  String get activity_yoga => 'йога';
+
+  @override
   String get activity_water => 'вода';
 
   @override
-  String get activity_medicine => 'лекарство';
+  String get activity_medicine => 'лекарства';
 
   @override
-  String get activity_healthy_food => 'здоровая пища';
-
-  @override
-  String get sleep => 'Сон';
+  String get activity_healthy_food => 'здоровая еда';
 
   @override
   String get activity_good_sleep => 'хороший сон';
@@ -339,16 +439,46 @@ class AppLocalizationsRu extends AppLocalizations {
   String get activity_bad_sleep => 'плохой сон';
 
   @override
+  String get activity_malaise => 'недомогание';
+
+  @override
   String get activity_early_wake => 'ранний подъем';
 
   @override
-  String get activity_nap => 'дневной сон';
+  String get bad_habits => 'Плохие привычки';
+
+  @override
+  String get activity_junk_food => 'вредная еда';
+
+  @override
+  String get activity_alcohol => 'алкоголь';
+
+  @override
+  String get activity_smoking => 'курение';
+
+  @override
+  String get activity_doomscrolling => 'думскроллинг';
+
+  @override
+  String get activity_caffeine => 'кофеин';
+
+  @override
+  String get activity_sugar => 'сахар';
+
+  @override
+  String get activity_skipped_meal => 'пропущенный прием пищи';
+
+  @override
+  String get activity_staying_up_late => 'поздний сон';
+
+  @override
+  String get activity_water_shortage => 'недостаток воды';
 
   @override
   String get weather => 'Погода';
 
   @override
-  String get activity_sunny => 'солнце';
+  String get activity_sunny => 'солнечно';
 
   @override
   String get activity_rain => 'дождь';
@@ -361,6 +491,18 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get activity_windy => 'ветрено';
+
+  @override
+  String get activity_hot => 'жарко';
+
+  @override
+  String get activity_cold => 'холодно';
+
+  @override
+  String get activity_thunder => 'гроза';
+
+  @override
+  String get activity_pressure => 'давление';
 
   @override
   String get hobbies => 'Хобби';
@@ -378,7 +520,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get activity_games => 'игры';
 
   @override
-  String get work_or_study => 'Работа или учеба';
+  String get activity_cooking => 'готовка';
+
+  @override
+  String get activity_gardening => 'садоводство';
+
+  @override
+  String get activity_cinema => 'просмотр фильмов';
+
+  @override
+  String get work_or_study => 'Учеба или работа';
 
   @override
   String get activity_study => 'учеба';
@@ -393,16 +544,19 @@ class AppLocalizationsRu extends AppLocalizations {
   String get activity_meeting => 'встреча';
 
   @override
-  String get activity_junk_food => 'вредная пища';
+  String get activity_overwork => 'переработка';
 
   @override
-  String get activity_alcohol => 'алкоголь';
+  String get activity_creative_block => 'творческий кризис';
 
   @override
-  String get activity_smoking => 'курение';
+  String get activity_procrastination => 'прокрастинация';
 
   @override
-  String get activity_doomscrolling => 'думскроллинг';
+  String get activity_late => 'опоздание';
+
+  @override
+  String get activity_presentation => 'выступление';
 
   @override
   String get social_activity => 'Социальная активность';
@@ -414,13 +568,49 @@ class AppLocalizationsRu extends AppLocalizations {
   String get activity_family => 'семья';
 
   @override
+  String get activity_pet => 'питомец';
+
+  @override
+  String get activity_party => 'вечеринка';
+
+  @override
+  String get activity_date => 'свидание';
+
+  @override
   String get activity_argument => 'спор';
 
   @override
   String get activity_awkward_situation => 'неловкая ситуация';
 
   @override
-  String get activity_staying_at_home => 'остаться дома';
+  String get activity_staying_at_home => 'пребывание дома';
+
+  @override
+  String get self_care => 'Забота о себе';
+
+  @override
+  String get activity_shopping => 'покупки';
+
+  @override
+  String get activity_beauty => 'красота';
+
+  @override
+  String get activity_meditation => 'медитация';
+
+  @override
+  String get activity_shower => 'душ';
+
+  @override
+  String get routine => 'Рутина';
+
+  @override
+  String get activity_cleaning => 'уборка';
+
+  @override
+  String get activity_washing => 'стирка';
+
+  @override
+  String get activity_driving => 'вождение';
 
   @override
   String get monthlyActivities => 'Активности за месяц';
