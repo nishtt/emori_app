@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import '../themes/mood_themes.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/mood_pack_provider.dart';
 import 'package:mood_app/l10n/app_localizations.dart';
 
-class MoodPacksPage extends StatefulWidget {
+class MoodPacksPage extends StatelessWidget {
   const MoodPacksPage({super.key});
 
   @override
-  State<MoodPacksPage> createState() => _MoodPacksPageState();
-}
-
-class _MoodPacksPageState extends State<MoodPacksPage> {
-  @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final moodPackProvider = Provider.of<MoodPackProvider>(context);
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        title: Text(l10n.chooseMoodPack, style: TextStyle(color: Colors.black)),
+        title: Text(
+          l10n.chooseMoodPack,
+          style: const TextStyle(color: Colors.black),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
@@ -26,27 +28,27 @@ class _MoodPacksPageState extends State<MoodPacksPage> {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16),
-        itemCount: MoodThemes.packs.length,
+        itemCount: moodPackProvider.packs.length,
         itemBuilder: (context, index) {
-          final pack = MoodThemes.packs[index];
-          bool isSelected = MoodThemes.selectedPack.id == pack.id;
+          final pack = moodPackProvider.packs[index];
+          final isSelected = moodPackProvider.currentPack.id == pack.id;
 
           return GestureDetector(
-            onTap: () async {
-              setState(() {
-                MoodThemes.selectedPackNotifier.value = pack;
-              });
-              // сохраняем выбор в память устройства
-              await MoodThemes.savePack(pack.id); 
+            onTap: () {
+              moodPackProvider.setPack(pack);
             },
             child: Container(
               margin: const EdgeInsets.only(bottom: 15),
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: isSelected ? Theme.of(context).colorScheme.primary.withOpacity(0.2) : Colors.white.withOpacity(0.5),
+                color: isSelected
+                    ? Theme.of(context).colorScheme.primary.withOpacity(0.2)
+                    : Colors.white.withOpacity(0.5),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: isSelected ? Theme.of(context).colorScheme.primary : Colors.black,
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.black,
                   width: isSelected ? 2 : 0.8,
                 ),
               ),
@@ -56,15 +58,23 @@ class _MoodPacksPageState extends State<MoodPacksPage> {
                     '${pack.basePath}happy.webp',
                     width: 60,
                     height: 60,
-                    errorBuilder: (context, error, stackTrace) => const Icon(Icons.pets, size: 40),
+                    errorBuilder: (context, error, stackTrace) =>
+                        const Icon(Icons.pets, size: 40),
                   ),
                   const SizedBox(width: 20),
                   Text(
                     pack.name,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const Spacer(),
-                  if (isSelected) Icon(Icons.check_circle, color: Theme.of(context).colorScheme.primary),
+                  if (isSelected)
+                    Icon(
+                      Icons.check_circle,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                 ],
               ),
             ),

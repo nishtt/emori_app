@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:mood_app/auth/auth_service.dart';
 import 'package:mood_app/pages/mood_packs_page.dart';
 import 'package:mood_app/pages/themes_page.dart';
-import 'package:mood_app/services/audio_provider.dart';
+import 'package:mood_app/providers/audio_provider.dart';
 import 'package:mood_app/services/notification_service.dart';
 import 'package:provider/provider.dart';
 import 'package:mood_app/components/my_alert_dialog.dart';
 import 'package:mood_app/l10n/app_localizations.dart';
-import 'package:mood_app/services/locale_provider.dart';
+import 'package:mood_app/providers/locale_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

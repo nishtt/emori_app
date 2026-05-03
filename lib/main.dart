@@ -3,12 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:mood_app/auth/auth_gate.dart';
 import 'package:mood_app/models/mood_pack.dart';
-import 'package:mood_app/themes/mood_themes.dart';
-import 'package:mood_app/services/theme_manager.dart';
+import 'package:mood_app/providers/mood_pack_provider.dart';
+import 'package:mood_app/providers/theme_provider.dart';
 import 'firebase_options.dart'; 
-import 'services/audio_provider.dart';
+import 'providers/audio_provider.dart';
 import 'package:mood_app/l10n/app_localizations.dart';
-import 'services/locale_provider.dart'; 
+import 'providers/locale_provider.dart'; 
 import 'services/notification_service.dart';
 
 void main() async {
@@ -22,15 +22,17 @@ void main() async {
   await NotificationService.init();
   await NotificationService.requestPermissions();
   //загрузка набора эмодзи
-  await MoodThemes.loadPack();
+ final moodPackProvider = MoodPackProvider();
+  await moodPackProvider.loadPack();
   // загрузка темы
-  final themeManager = ThemeManager();
-  await themeManager.loadTheme();
+  final themeProvider = ThemeProvider();
+  await themeProvider.loadTheme();
 
   runApp(
   MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => themeManager),
+      ChangeNotifierProvider(create: (_) => themeProvider),
+      ChangeNotifierProvider(create: (_) => moodPackProvider),
       ChangeNotifierProvider(create: (_) => AudioProvider()), 
       ChangeNotifierProvider(create: (_) => LocaleProvider()),
     ],
@@ -45,24 +47,18 @@ class MoodTrackerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //текущая тема и язык
-    final themeManager = Provider.of<ThemeManager>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
     final localeProvider = Provider.of<LocaleProvider>(context);
 
    
-    return ValueListenableBuilder<MoodPack>(
-       //перерисовка приложения при смене набора эмодзи
-      valueListenable: MoodThemes.selectedPackNotifier,
-      builder: (context, pack, child) {
-        return MaterialApp(
-          title: 'Mood Tracker',
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          locale: localeProvider.locale,
-          home: const AuthGate(),
-          theme: themeManager.themeData,  
-        );
-      }, 
-    ); 
+    return MaterialApp(
+      title: 'Mood Tracker',
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: localeProvider.locale,
+      home: const AuthGate(),
+      theme: themeProvider.themeData,
+    );
   }
 }

@@ -3,9 +3,10 @@ import 'package:intl/intl.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mood_app/l10n/app_localizations.dart';
-import 'package:mood_app/services/mood_manager.dart';
+import 'package:mood_app/services/mood_service.dart';
 import 'package:mood_app/services/entry_service.dart';
-import 'package:mood_app/models/activity_item.dart';
+import 'package:mood_app/data/activity_data.dart';
+import 'package:mood_app/services/activity_localization.dart';
 
 class InsightsPage extends StatefulWidget {
   const InsightsPage({super.key});

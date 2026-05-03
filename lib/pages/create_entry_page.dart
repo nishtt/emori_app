@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../services/mood_manager.dart';
+import '../services/mood_service.dart';
 import 'emote_picker_page.dart';
 import 'package:mood_app/l10n/app_localizations.dart';
 import 'package:mood_app/services/entry_service.dart';
 import 'package:mood_app/models/mood_entry.dart';
 import 'package:mood_app/pages/activities_picker_page.dart';
-import 'package:mood_app/models/activity_item.dart';
+import 'package:mood_app/data/activity_data.dart';
+import 'package:mood_app/services/activity_localization.dart';
 import 'package:mood_app/components/my_alert_dialog.dart';
+import 'package:provider/provider.dart';
+import 'package:mood_app/providers/mood_pack_provider.dart';
 
 enum EntryMode {
   create,
@@ -189,6 +192,7 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final localeCode = Localizations.localeOf(context).languageCode;
+    final moodProvider = Provider.of<MoodPackProvider>(context);
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -278,7 +282,7 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
                       child: Tooltip(
                         message: l10n.changeMood,
                         child: Image.asset(
-                          MoodManager.getAssetPath(_currentMoodKey),
+                          moodProvider.getAssetPath(_currentMoodKey),
                           width: 100,
                           height: 100,
                         ),

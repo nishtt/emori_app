@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../services/mood_manager.dart'; 
+import 'package:provider/provider.dart';
+import '../providers/mood_pack_provider.dart';
 
 class CalendarDayTile extends StatelessWidget {
   final int day;
@@ -29,10 +30,12 @@ class CalendarDayTile extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context) {
+
+    final moodProvider = Provider.of<MoodPackProvider>(context);
     // 1. запись существует - показываем эмодзи
     if (moodKey != null) {
       return Image.asset(
-        MoodManager.getAssetPath(moodKey!),
+        moodProvider.getAssetPath(moodKey!),
         width: 45,
         height: 45,
         fit: BoxFit.contain,
@@ -73,7 +76,7 @@ class CalendarDayTile extends StatelessWidget {
       alignment: Alignment.center, 
       children: [
         Image.asset(
-          MoodManager.getPlaceholderPath(),
+          moodProvider.getPlaceholderPath(),
           width: 45, 
           height: 45,
           color: Color.fromARGB(89, 154, 154, 154), 

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../services/mood_manager.dart';
+import 'package:provider/provider.dart';
+import '../services/mood_service.dart';
+import 'package:mood_app/providers/mood_pack_provider.dart';
 import '../components/my_alert_dialog.dart';
 import 'package:mood_app/l10n/app_localizations.dart';
 import 'package:mood_app/models/mood_entry.dart';
 import 'package:mood_app/services/entry_service.dart';
-import 'package:mood_app/models/activity_item.dart';
+import 'package:mood_app/data/activity_data.dart';
+import 'package:mood_app/services/activity_localization.dart';
 
 class NoteCard extends StatelessWidget {
   final MoodEntry entry;
@@ -81,6 +84,7 @@ class NoteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localeCode = Localizations.localeOf(context).languageCode;
+    final moodProvider = Provider.of<MoodPackProvider>(context);
 
     return GestureDetector(
       onTap: onTap,
@@ -137,7 +141,7 @@ class NoteCard extends StatelessWidget {
             // эмодзи
             Center(
               child: Image.asset(
-                MoodManager.getAssetPath(entry.moodKey),
+                moodProvider.getAssetPath(entry.moodKey),
                 width: 100,
                 height: 100,
               ),

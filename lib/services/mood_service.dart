@@ -1,4 +1,4 @@
-import 'package:mood_app/themes/mood_themes.dart';
+import 'package:mood_app/providers/mood_pack_provider.dart';
 import 'package:mood_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -10,11 +10,11 @@ class MoodManager {
   ];
 
   static String getAssetPath(String moodKey) {
-    return '${MoodThemes.selectedPack.basePath}$moodKey.webp';
+    return '${MoodPackProvider().currentPack.basePath}$moodKey.webp';
   }
  
   static String getPlaceholderPath() {
-    return '${MoodThemes.selectedPack.basePath}${MoodThemes.selectedPack.placeholder}';
+    return '${MoodPackProvider().currentPack.basePath}${MoodPackProvider().currentPack.placeholder}';
   }
   
   static int getScore(String moodKey) {

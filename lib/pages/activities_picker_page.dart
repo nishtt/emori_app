@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mood_app/models/activity_item.dart';
+import 'package:mood_app/data/activity_data.dart';
+import 'package:mood_app/services/activity_localization.dart';
 import 'package:mood_app/l10n/app_localizations.dart';
 
 class ActivitiesPickerPage extends StatefulWidget {

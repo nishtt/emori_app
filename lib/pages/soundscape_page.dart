@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:mood_app/models/sound_item.dart';
-import 'package:mood_app/services/audio_provider.dart';
+import 'package:mood_app/data/sound_items.dart';
+import 'package:mood_app/providers/audio_provider.dart';
 import 'package:mood_app/l10n/app_localizations.dart';
 
 class SoundscapePage extends StatelessWidget {

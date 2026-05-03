@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../services/theme_manager.dart';
+import '../providers/theme_provider.dart';
 import 'package:mood_app/l10n/app_localizations.dart';
 
 class ThemesPage extends StatelessWidget {
@@ -8,12 +8,16 @@ class ThemesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeManager = Provider.of<ThemeManager>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
     final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        title: Text(l10n.appThemes, style: TextStyle(color: Colors.black)),
+        title: Text(
+          l10n.appThemes,
+          style: const TextStyle(color: Colors.black),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
@@ -24,55 +28,75 @@ class ThemesPage extends StatelessWidget {
       body: SafeArea(
         child: ListView.builder(
           padding: const EdgeInsets.all(16),
-          itemCount: themeManager.themeOptions.length,
+          itemCount: themeProvider.themes.length,
           itemBuilder: (context, index) {
-            final option = themeManager.themeOptions[index];
-            // проверяем выбрана ли эта тема сейчас
-            bool isSelected = themeManager.themeData == option.themeData;
-        
+            final option = themeProvider.themes[index];
+
+            // проверяем выбранную тему по id
+            final isSelected =
+                themeProvider.currentTheme.id == option.id;
+
             return GestureDetector(
-              onTap: () => themeManager.setTheme(index),
+              onTap: () => themeProvider.setTheme(option),
               child: Container(
                 margin: const EdgeInsets.only(bottom: 15),
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: isSelected 
-                      ? Theme.of(context).colorScheme.primary.withOpacity(0.1) 
-                      : Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.primary.withOpacity(0.1)
+                      : Theme.of(context)
+                          .colorScheme
+                          .secondary
+                          .withOpacity(0.5),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: isSelected ? Theme.of(context).colorScheme.primary : Colors.black,
+                    color: isSelected
+                        ? Theme.of(context).colorScheme.primary
+                        : Colors.black,
                     width: isSelected ? 2 : 0.8,
                   ),
                 ),
                 child: Row(
                   children: [
-        
+                    // цветовое превью темы
                     Container(
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(color: Colors.black26, width: 1),
+                        border: Border.all(
+                          color: Colors.black26,
+                          width: 1,
+                        ),
                         gradient: LinearGradient(
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                           colors: [
-                            option.themeData.colorScheme.surface, 
-                            option.themeData.colorScheme.primary,  
+                            option.themeData.colorScheme.surface,
+                            option.themeData.colorScheme.primary,
                           ],
-                          stops: const [0.5, 0.5], 
+                          stops: const [0.5, 0.5],
                         ),
                       ),
                     ),
+
                     const SizedBox(width: 20),
+
                     Text(
                       option.name,
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
+
                     const Spacer(),
-                    if (isSelected) 
-                      Icon(Icons.check_circle, color: Theme.of(context).colorScheme.primary),
+
+                    if (isSelected)
+                      Icon(
+                        Icons.check_circle,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                   ],
                 ),
               ),
