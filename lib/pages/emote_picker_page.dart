@@ -23,6 +23,9 @@ class EmotePickerPage extends StatelessWidget {
     final moodProvider = Provider.of<MoodPackProvider>(context);
     final l10n = AppLocalizations.of(context)!;
     final localeCode = Localizations.localeOf(context).languageCode;
+    final formattedDate = localeCode == 'ru'
+      ? DateFormat('EEEE, d MMMM', localeCode).format(selectedDate)
+      : DateFormat('EEEE, MMM d', localeCode).format(selectedDate);
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -34,7 +37,7 @@ class EmotePickerPage extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          DateFormat('EEEE, MMM d', localeCode).format(selectedDate),
+          formattedDate,
           style: const TextStyle(color: Colors.grey, fontSize: 16),
         ),
         centerTitle: true,

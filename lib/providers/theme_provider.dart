@@ -33,7 +33,6 @@ class ThemeProvider extends ChangeNotifier {
       (theme) => theme.id == id,
       orElse: () => appThemes.first,
     );
-
     await setTheme(selectedTheme);
   }
 

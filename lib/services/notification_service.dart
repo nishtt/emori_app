@@ -2,6 +2,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:flutter/foundation.dart';
 
 class NotificationService {
   static final FlutterLocalNotificationsPlugin _notifications =
@@ -10,35 +11,35 @@ class NotificationService {
   // ИНИЦИАЛИЗАЦИЯ
   static Future<void> init() async {
     tz.initializeTimeZones();
-    
+
     try {
-      // 1. Получаем объект TimezoneInfo
       final locationData = await FlutterTimezone.getLocalTimezone();
-      
-      // 2. В версии 5.0.2 используем поле .id
-      String timeZoneName = locationData.identifier; 
+      final String timeZoneName = locationData.identifier;
 
-      print("Final TimeZone: $timeZoneName");
+      debugPrint("Final TimeZone: $timeZoneName");
       tz.setLocalLocation(tz.getLocation(timeZoneName));
-
     } catch (e) {
-      print("Error setting timezone, falling back: $e");
-      // Безопасный вариант для диплома
+      debugPrint("Error setting timezone, falling back: $e");
       tz.setLocalLocation(tz.getLocation('Europe/Moscow'));
     }
 
     const AndroidInitializationSettings androidSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-
-    const InitializationSettings settings =
-        InitializationSettings(android: androidSettings);
-
+    const DarwinInitializationSettings iosSettings =
+        DarwinInitializationSettings(
+      requestAlertPermission: false,
+      requestBadgePermission: false,
+      requestSoundPermission: false,
+    );
+    const InitializationSettings settings = InitializationSettings(
+      android: androidSettings,
+      iOS: iosSettings,
+    );
     await _notifications.initialize(settings);
-
-    // Создаём канал
-    final androidPlugin = _notifications.resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>();
-
+    //канал для андроид
+    final androidPlugin =
+        _notifications.resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>();
     await androidPlugin?.createNotificationChannel(
       const AndroidNotificationChannel(
         'daily_channel_id',
@@ -46,6 +47,42 @@ class NotificationService {
         importance: Importance.max,
       ),
     );
+  }
+
+  // ЗАПРОС РАЗРЕШЕНИЙ ПРИ ВКЛЮЧЕНИИ ФУНКЦИИ
+  static Future<bool> requestPermissions() async {
+    bool granted = true;
+
+    // Android
+    final androidPlugin =
+        _notifications.resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>();
+
+    if (androidPlugin != null) {
+      final notificationsGranted =
+          await androidPlugin.requestNotificationsPermission();
+
+      await androidPlugin.requestExactAlarmsPermission();
+
+      granted = notificationsGranted ?? false;
+    }
+
+    // iOS
+    final iosPlugin =
+        _notifications.resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>();
+
+    if (iosPlugin != null) {
+      final iosGranted = await iosPlugin.requestPermissions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+
+      granted = iosGranted ?? false;
+    }
+
+    return granted;
   }
 
   // ПЛАНИРОВАНИЕ
@@ -56,7 +93,6 @@ class NotificationService {
     required String title,
     required String body,
   }) async {
-    // ФИКС №2: Считаем время относительно локального пояса, а не UTC
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
 
     tz.TZDateTime scheduledDate = tz.TZDateTime(
@@ -68,13 +104,12 @@ class NotificationService {
       minute,
     );
 
-    // Если время уже прошло сегодня, переносим на завтра
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
 
-    print("ТЕКУЩЕЕ ВРЕМЯ (локальное): $now");
-    print("ЗАПЛАНИРОВАНО НА: $scheduledDate");
+    debugPrint("Текущее время: $now");
+    debugPrint("Запланировано на: $scheduledDate");
 
     await _notifications.zonedSchedule(
       id,
@@ -89,38 +124,31 @@ class NotificationService {
           priority: Priority.high,
           ongoing: false,
         ),
+        iOS: DarwinNotificationDetails(
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: true,
+        ),
       ),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
-      // ФИКС №3: Указываем, что уведомление должно повторяться ежедневно
       matchDateTimeComponents: DateTimeComponents.time,
     );
-  }
-
-  // ЗАПРОС РАЗРЕШЕНИЙ (вызывать при старте приложения)
-  static Future<void> requestPermissions() async {
-    final android = _notifications.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
-
-    if (android != null) {
-      await android.requestNotificationsPermission();
-      await android.requestExactAlarmsPermission();
-    }
   }
 
   // ОТМЕНА ВСЕХ
   static Future<void> cancelAll() async {
     await _notifications.cancelAll();
-    print("Все уведомления отменены");
+    debugPrint("уведомления отменены");
   }
 
   // DEBUG
   static Future<void> printPending() async {
     final pending = await _notifications.pendingNotificationRequests();
-    print("PENDING COUNT: ${pending.length}");
+    debugPrint("PENDING COUNT: ${pending.length}");
     for (var n in pending) {
-      print("ID: ${n.id}, TITLE: ${n.title}, NEXT: ${n.payload}");
+      debugPrint("ID: ${n.id}, TITLE: ${n.title}, NEXT: ${n.payload}");
     }
   }
 }

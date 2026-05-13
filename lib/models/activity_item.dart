@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ActivityItem {
-  final String key; // уникальный ключ активности
+  final String key; // ключ активности
   final IconData icon; // иконка активности
   final String categoryKey; // ключ категории
 
@@ -21,3 +21,4 @@ class ActivityCategory {
     required this.items,
   });
 }
+

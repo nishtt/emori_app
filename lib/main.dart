@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:mood_app/auth/auth_gate.dart';
-import 'package:mood_app/models/mood_pack.dart';
 import 'package:mood_app/providers/mood_pack_provider.dart';
 import 'package:mood_app/providers/theme_provider.dart';
 import 'firebase_options.dart'; 
@@ -18,9 +17,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  //инициализация уведомлений и запрашивание разрешений
+  //инициализация уведомлений
   await NotificationService.init();
-  await NotificationService.requestPermissions();
+
   //загрузка набора эмодзи
  final moodPackProvider = MoodPackProvider();
   await moodPackProvider.loadPack();

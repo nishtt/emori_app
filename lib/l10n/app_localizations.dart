@@ -1255,6 +1255,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No activities for the selected mood'**
   String get noActivitiesForMood;
+
+  /// No description provided for @notificationsPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications permission denied. Please allow notifications in your device settings: Settings > Apps > emori > Notifications'**
+  String get notificationsPermissionDenied;
+
+  /// No description provided for @dynamicsLockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Dynamics are not available yet'**
+  String get dynamicsLockedTitle;
+
+  /// No description provided for @dynamicsLockedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Add at least 3 entries this month to see your mood chart and stability score.'**
+  String get dynamicsLockedDescription;
+
+  /// No description provided for @stabilityStable.
+  ///
+  /// In en, this message translates to:
+  /// **'Stable'**
+  String get stabilityStable;
+
+  /// No description provided for @stabilityUnderControl.
+  ///
+  /// In en, this message translates to:
+  /// **'Under control'**
+  String get stabilityUnderControl;
+
+  /// No description provided for @stabilityNeedsAttention.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs attention'**
+  String get stabilityNeedsAttention;
+
+  /// No description provided for @stabilityInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How stability is calculated'**
+  String get stabilityInfoTitle;
+
+  /// No description provided for @stabilityInfoDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'75-100% — stable\n50-74% — under control\n0-49% — needs attention\n\nThe smaller the changes between entries, the higher the stability.'**
+  String get stabilityInfoDescription;
+
+  /// No description provided for @gotIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get gotIt;
 }
 
 class _AppLocalizationsDelegate

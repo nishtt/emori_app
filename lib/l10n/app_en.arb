@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "settings": "Settings",
   "selectLanguage": "Select Language",
   "general": "General",
@@ -203,6 +204,19 @@
 
   "monthlyActivities": "Monthly activities",
   "usuallyWithMood": "Usually with",
-  "noActivitiesForMood": "No activities for the selected mood"
+  "noActivitiesForMood": "No activities for the selected mood",
+  "notificationsPermissionDenied": "Notifications permission denied. Please allow notifications in your device settings: Settings > Apps > emori > Notifications",
+
+
+  "dynamicsLockedTitle": "Dynamics are not available yet",
+  "dynamicsLockedDescription": "Add at least 3 entries this month to see your mood chart and stability score.",
+
+  "stabilityStable": "Stable",
+  "stabilityUnderControl": "Under control",
+  "stabilityNeedsAttention": "Needs attention",
+
+  "stabilityInfoTitle": "How stability is calculated",
+  "stabilityInfoDescription": "75-100% — stable\n50-74% — under control\n0-49% — needs attention\n\nThe smaller the changes between entries, the higher the stability.",
+  "gotIt": "Got it"
 
 }

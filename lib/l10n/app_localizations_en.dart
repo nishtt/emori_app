@@ -610,4 +610,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noActivitiesForMood => 'No activities for the selected mood';
+
+  @override
+  String get notificationsPermissionDenied =>
+      'Notifications permission denied. Please allow notifications in your device settings: Settings > Apps > emori > Notifications';
+
+  @override
+  String get dynamicsLockedTitle => 'Dynamics are not available yet';
+
+  @override
+  String get dynamicsLockedDescription =>
+      'Add at least 3 entries this month to see your mood chart and stability score.';
+
+  @override
+  String get stabilityStable => 'Stable';
+
+  @override
+  String get stabilityUnderControl => 'Under control';
+
+  @override
+  String get stabilityNeedsAttention => 'Needs attention';
+
+  @override
+  String get stabilityInfoTitle => 'How stability is calculated';
+
+  @override
+  String get stabilityInfoDescription =>
+      '75-100% — stable\n50-74% — under control\n0-49% — needs attention\n\nThe smaller the changes between entries, the higher the stability.';
+
+  @override
+  String get gotIt => 'Got it';
 }

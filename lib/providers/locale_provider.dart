@@ -11,19 +11,19 @@ class LocaleProvider extends ChangeNotifier {
     _loadLocale(); 
   }
 
-  // Метод для смены языка из настроек
+  // метод для смены языка из настроек
   void setLocale(Locale locale) async {
     if (!['en', 'ru'].contains(locale.languageCode)) return;
 
     _locale = locale;
     notifyListeners(); 
 
-    // Сохраняем выбор в память телефона
+    // сохраняем выбор в память телефона
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('language_code', locale.languageCode);
   }
 
-  // Загрузка сохраненного языка из памяти
+  // загрузка сохраненного языка из памяти
   void _loadLocale() async {
     final prefs = await SharedPreferences.getInstance();
     final String languageCode = prefs.getString('language_code') ?? 'ru';

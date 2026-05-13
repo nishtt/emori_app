@@ -145,7 +145,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get moodStability => 'Стабильность';
 
   @override
-  String get soundscape => 'Звуковая атмосфера';
+  String get soundscape => 'Звуковой ландшафт';
 
   @override
   String get cancel => 'Отмена';
@@ -620,4 +620,34 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get noActivitiesForMood => 'Нет активностей для выбранного настроения';
+
+  @override
+  String get notificationsPermissionDenied =>
+      'Разрешение на уведомления отклонено. Разрешите их в настройках вашего устройства: Настройки > Приложения > emori > Уведомления';
+
+  @override
+  String get dynamicsLockedTitle => 'Динамика пока недоступна';
+
+  @override
+  String get dynamicsLockedDescription =>
+      'Добавьте хотя бы 3 записи за месяц, чтобы увидеть график и стабильность настроения.';
+
+  @override
+  String get stabilityStable => 'Стабильно';
+
+  @override
+  String get stabilityUnderControl => 'Под контролем';
+
+  @override
+  String get stabilityNeedsAttention => 'Нужно внимание';
+
+  @override
+  String get stabilityInfoTitle => 'Как считается стабильность';
+
+  @override
+  String get stabilityInfoDescription =>
+      '75-100% — стабильно\n50-74% — под контролем\n0-49% — нужно внимание\n\nЧем меньше перепады между записями, тем выше стабильность.';
+
+  @override
+  String get gotIt => 'Понятно';
 }

@@ -4,7 +4,7 @@ class MoodEntry {
   final String id;//id заметки
   final DateTime date;// дата заметки
   final String moodKey; // ключ настроения ('happy', 'sad' и тд)
-  final int score;      // score настроения (1-5)
+  final int score;      // балл настроения (1-5)
   final String note;   // текст заметки 
   final List<String> activities; // выбранные активности
 

@@ -116,9 +116,6 @@ class _MonthEntriesListState extends State<MonthEntriesList> {
 
   @override
   Widget build(BuildContext context) {
-  
-    final l10n = AppLocalizations.of(context)!;
-
 
     return StreamBuilder<QuerySnapshot>(
       stream: _entryService.watchEntriesForMonth(widget.month),

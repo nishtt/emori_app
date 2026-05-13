@@ -20,13 +20,13 @@ class AudioProvider extends ChangeNotifier with WidgetsBindingObserver{
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused) {
-      // Приложение свернуто
+      // приложение свернуто
       if (_isPlaying) {
         _wasPlayingBeforePause = true;
         pauseSound();
       }
     } else if (state == AppLifecycleState.resumed) {
-      // Приложение активно
+      // приложение активно
       if (_wasPlayingBeforePause) {
         resumeSound();
         _wasPlayingBeforePause = false;

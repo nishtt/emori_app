@@ -65,10 +65,8 @@ class _CreateEntryPageState extends State<CreateEntryPage> {
   }
 
   void _closePage() {
-    if (widget.mode == EntryMode.edit) {
+    if (Navigator.canPop(context)) {
       Navigator.pop(context);
-    } else {
-      Navigator.of(context).popUntil((route) => route.isFirst);
     }
   }
 

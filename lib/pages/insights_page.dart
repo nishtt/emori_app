@@ -155,87 +155,112 @@ class _InsightsPageState extends State<InsightsPage> {
       ),
     );
   }
-// 2. линейный график изменения настроения + стабильность
-Widget _buildLineChartCard(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
-  final int lastDay = DateTime(_selectedMonth.year, _selectedMonth.month + 1, 0).day;
-  final l10n = AppLocalizations.of(context)!;
-  
-  List<FlSpot> spots = [];
-  double totalChange = 0;
-  
-  for (int i = 0; i < docs.length; i++) {
-    final data = docs[i].data();
-    final date = (data['date'] as Timestamp).toDate();
-    final score = (data['score'] as num).toDouble();
-    
-    spots.add(FlSpot(date.day.toDouble(), score));
 
-    if (i > 0) {
-      final prevScore = (docs[i - 1].data())['score'] as num;
-      totalChange += (score - prevScore).abs();
-    }
+
+// 2. линейный график изменения настроения + стабильность
+Widget _buildLineChartCard(
+  List<QueryDocumentSnapshot<Map<String, dynamic>>> docs,
+) {
+  final l10n = AppLocalizations.of(context)!;
+
+  if (docs.length < 3) {
+    return _buildLockedDynamicsCard();
   }
 
-  double stability = docs.length > 1 
-    ? (1 - (totalChange / (docs.length - 1) / 4)).clamp(0, 1) * 100 
-    : 100;
+  final int lastDay =
+      DateTime(_selectedMonth.year, _selectedMonth.month + 1, 0).day;
+
+  final sortedDocs = [...docs]..sort((a, b) {
+    final dateA = (a.data()['date'] as Timestamp).toDate();
+    final dateB = (b.data()['date'] as Timestamp).toDate();
+    return dateA.compareTo(dateB);
+  });
+
+  final List<FlSpot> spots = [];
+
+  for (final doc in sortedDocs) {
+    final data = doc.data();
+    final date = (data['date'] as Timestamp).toDate();
+    final score = (data['score'] as num).toDouble();
+
+    spots.add(FlSpot(date.day.toDouble(), score));
+  }
+
+  final stability = _calculateStability(docs);
 
   return Container(
-    height: 300,
-    padding: const EdgeInsets.all(16),
+    height: 360,
+    padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
     decoration: _cardDecoration(),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Flexible(
+            Expanded(
               child: Text(
-                l10n.moodFlow, 
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                overflow: TextOverflow.ellipsis, 
+                l10n.moodFlow,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
-            const SizedBox(width: 8), 
-            Text(
-              "${l10n.moodStability}: ${stability.toStringAsFixed(0)}%", 
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary, 
-                fontWeight: FontWeight.bold,
-                fontSize: 14, 
+            IconButton(
+              icon: const Icon(Icons.info_outline),
+              constraints: const BoxConstraints(
+                minWidth: 36,
+                minHeight: 36,
               ),
+              onPressed: () => _showStabilityInfoDialog(context),
             ),
           ],
         ),
-        const SizedBox(height: 20),
+
+        const SizedBox(height: 8),
+
         Expanded(
           child: LineChart(
             LineChartData(
               minX: 1,
-              maxX: lastDay.toDouble(), 
+              maxX: lastDay.toDouble(),
               minY: 0,
               maxY: 5,
               gridData: const FlGridData(show: true),
               borderData: FlBorderData(
                 show: true,
-                border: const Border(left: BorderSide(), bottom: BorderSide()),
+                border: const Border(
+                  left: BorderSide(),
+                  bottom: BorderSide(),
+                ),
               ),
               titlesData: FlTitlesData(
-                topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                topTitles: const AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+                rightTitles: const AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
                 leftTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
                     interval: 1,
-                    getTitlesWidget: (value, meta) => Text(value.toInt().toString()),
+                    reservedSize: 28,
+                    getTitlesWidget: (value, meta) {
+                      return Text(
+                        value.toInt().toString(),
+                        style: const TextStyle(fontSize: 11),
+                      );
+                    },
                   ),
                 ),
                 bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
                     interval: 1,
-                    reservedSize: 30,
+                    reservedSize: 28,
                     getTitlesWidget: (value, meta) {
                       if (value % 1 != 0 || value < 1 || value > lastDay) {
                         return const SizedBox.shrink();
@@ -246,24 +271,24 @@ Widget _buildLineChartCard(List<QueryDocumentSnapshot<Map<String, dynamic>>> doc
                       if (day == 1 || day == 10 || day == 20 || day == lastDay) {
                         return SideTitleWidget(
                           axisSide: meta.axisSide,
-                          space: 8,
-                          
+                          space: 6,
                           fitInside: SideTitleFitInsideData(
                             enabled: true,
                             distanceFromEdge: 0,
-                            axisPosition: meta.axisPosition, 
-                            parentAxisSize: meta.parentAxisSize, 
+                            axisPosition: meta.axisPosition,
+                            parentAxisSize: meta.parentAxisSize,
                           ),
                           child: Text(
                             day.toString(),
                             style: const TextStyle(
-                              fontSize: 12, 
+                              fontSize: 11,
                               color: Colors.grey,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         );
                       }
+
                       return const SizedBox.shrink();
                     },
                   ),
@@ -286,9 +311,42 @@ Widget _buildLineChartCard(List<QueryDocumentSnapshot<Map<String, dynamic>>> doc
             ),
           ),
         ),
+
+        const SizedBox(height: 12),
+
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                "${l10n.moodStability}: ${stability.toStringAsFixed(0)}%",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            const SizedBox(width: 8),
+            _buildStabilityCommentBadge(stability),
+          ],
+        ),
       ],
     ),
   );
+}
+
+String _getStabilityComment(double stability) {
+  final l10n = AppLocalizations.of(context)!;
+  if (stability >= 75) {
+    return l10n.stabilityStable;
+  }
+
+  if (stability >= 50) {
+    return l10n.stabilityUnderControl;
+  }
+
+  return l10n.stabilityNeedsAttention;
 }
 
   // 3. круговая диаграмма соотношения эмоций
@@ -481,6 +539,76 @@ Widget _buildLineChartCard(List<QueryDocumentSnapshot<Map<String, dynamic>>> doc
     );
   }
   
+  Widget _buildLockedDynamicsCard() {
+    final l10n = AppLocalizations.of(context)!;
+
+    return Container(
+      height: 220,
+      padding: const EdgeInsets.all(20),
+      decoration: _cardDecoration(),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.lock_outline,
+            size: 36,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          const SizedBox(height: 12),
+          Text(
+            l10n.dynamicsLockedTitle,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            l10n.dynamicsLockedDescription,
+            style: const TextStyle(
+              color: Colors.grey,
+              fontSize: 14,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStabilityCommentBadge(double stability) {
+  final text = _getStabilityComment(stability);
+
+  Color color;
+
+  if (stability >= 75) {
+    color = Colors.green;
+  } else if (stability >= 50) {
+    color = Colors.orange;
+  } else {
+    color = Colors.redAccent;
+  }
+
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+    decoration: BoxDecoration(
+      color: color.withOpacity(0.12),
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(color: color, width: 1),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontWeight: FontWeight.bold,
+        fontSize: 12,
+      ),
+    ),
+  );
+}
+
+
   Widget _buildActivityStatItem(MapEntry<String, int> entry) {
   final activity = getActivityByKey(entry.key);
 
@@ -553,6 +681,62 @@ Widget _buildLineChartCard(List<QueryDocumentSnapshot<Map<String, dynamic>>> doc
         ),
       ],
     ),
+  );
+}
+
+double _calculateStability(
+  List<QueryDocumentSnapshot<Map<String, dynamic>>> docs,
+) {
+  if (docs.length < 3) {
+    return 0.0;
+  }
+
+  final sortedDocs = [...docs]..sort((a, b) {
+    final dateA = (a.data()['date'] as Timestamp).toDate();
+    final dateB = (b.data()['date'] as Timestamp).toDate();
+    return dateA.compareTo(dateB);
+  });
+
+  double totalChange = 0;
+  int changesCount = 0;
+
+  for (int i = 1; i < sortedDocs.length; i++) {
+    final previousScore = (sortedDocs[i - 1].data()['score'] as num).toDouble();
+    final currentScore = (sortedDocs[i].data()['score'] as num).toDouble();
+
+    totalChange += (currentScore - previousScore).abs();
+    changesCount++;
+  }
+
+  if (changesCount == 0) {
+    return 100.0;
+  }
+
+  final masd = totalChange / changesCount;
+
+
+  final stability = (1 - (masd / 4)) * 100;
+
+  return stability.clamp(0.0, 100.0);
+}
+
+void _showStabilityInfoDialog(BuildContext context) {
+  final l10n = AppLocalizations.of(context)!;
+
+  showDialog(
+    context: context,
+    builder: (dialogContext) {
+      return AlertDialog(
+        title: Text(l10n.stabilityInfoTitle),
+        content: Text(l10n.stabilityInfoDescription),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: Text(l10n.gotIt),
+          ),
+        ],
+      );
+    },
   );
 }
 }

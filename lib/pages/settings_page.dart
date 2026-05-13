@@ -210,15 +210,42 @@ class _SettingsPageState extends State<SettingsPage> {
                 activeThumbColor: Theme.of(context).colorScheme.primary,
                 onChanged: (bool value) async {
                   if (value) {
-                    await NotificationService.requestPermissions();
+                    final granted = await NotificationService.requestPermissions();
+
+                    if (!granted) {
+                      if (!mounted) return;
+
+                      setState(() {
+                        _isNotificationOn = false;
+                      });
+
+                      showMyDialog(
+                        context: context,
+                        title: l10n.notifications,
+                        message: l10n.notificationsPermissionDenied,
+                        isError: true,
+                      );
+
+                      return;
+                    }
+
+                    if (!mounted) return;
+
+                    setState(() {
+                      _isNotificationOn = true;
+                    });
+
                     _showScrollingTimePicker(l10n);
                   } else {
-                    NotificationService.cancelAll(); 
+                    await NotificationService.cancelAll();
                     await _saveSettings(false);
+
+                    if (!mounted) return;
+
+                    setState(() {
+                      _isNotificationOn = false;
+                    });
                   }
-                  setState(() {
-                    _isNotificationOn = value;
-                  });
                 },
               ),
             ),

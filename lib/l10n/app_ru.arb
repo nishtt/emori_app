@@ -45,7 +45,7 @@
   "avgScore": "Средний балл",
   "moodFlow": "График настроения",
   "moodStability": "Стабильность",
-  "soundscape": "Звуковая атмосфера",
+  "soundscape": "Звуковой ландшафт",
   "cancel": "Отмена",
   "appThemes": "Темы приложения",
   "chooseMoodPack": "Выбор набора",
@@ -204,5 +204,17 @@
 
   "monthlyActivities": "Активности за месяц",
   "usuallyWithMood": "Обычно с",
-  "noActivitiesForMood": "Нет активностей для выбранного настроения"
+  "noActivitiesForMood": "Нет активностей для выбранного настроения",
+  "notificationsPermissionDenied": "Разрешение на уведомления отклонено. Разрешите их в настройках вашего устройства: Настройки > Приложения > emori > Уведомления",
+  
+  "dynamicsLockedTitle": "Динамика пока недоступна",
+  "dynamicsLockedDescription": "Добавьте хотя бы 3 записи за месяц, чтобы увидеть график и стабильность настроения.",
+
+  "stabilityStable": "Стабильно",
+  "stabilityUnderControl": "Под контролем",
+  "stabilityNeedsAttention": "Нужно внимание",
+  "stabilityInfoTitle": "Как считается стабильность",
+  "stabilityInfoDescription": "75-100% — стабильно\n50-74% — под контролем\n0-49% — нужно внимание\n\nЧем меньше перепады между записями, тем выше стабильность.",
+  "gotIt": "Понятно"
+
 }
